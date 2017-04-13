@@ -1,4 +1,7 @@
 Rails.application.routes.draw do
+  resources :routes
+  resources :stations
+  resources :tariff_zones
   resources :role_users
   resources :roles
   resources :password_resets

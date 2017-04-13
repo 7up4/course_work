@@ -1,0 +1,21 @@
+%h1 Listing tariff_zones
+
+%table
+  %thead
+    %tr
+      %th Name
+      %th
+      %th
+      %th
+
+  %tbody
+    - @tariff_zones.each do |tariff_zone|
+      %tr
+        %td= tariff_zone.name
+        %td= link_to 'Show', tariff_zone
+        %td= link_to 'Edit', edit_tariff_zone_path(tariff_zone)
+        %td= link_to 'Destroy', tariff_zone, :method => :delete, :data => { :confirm => 'Are you sure?' }
+
+%br
+
+= link_to 'New Tariff zone', new_tariff_zone_path

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170409205031) do
+ActiveRecord::Schema.define(version: 20170413051841) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -53,6 +53,51 @@ ActiveRecord::Schema.define(version: 20170409205031) do
 
   add_index "roles", ["info"], name: "index_roles_on_info", unique: true, using: :btree
   add_index "roles", ["name"], name: "index_roles_on_name", unique: true, using: :btree
+
+  create_table "route_stations", force: :cascade do |t|
+    t.integer  "station_id"
+    t.integer  "route_id"
+    t.time     "arrival_time"
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
+  end
+
+  add_index "route_stations", ["route_id"], name: "index_route_stations_on_route_id", using: :btree
+  add_index "route_stations", ["station_id", "route_id"], name: "index_route_stations_on_station_id_and_route_id", unique: true, using: :btree
+  add_index "route_stations", ["station_id"], name: "index_route_stations_on_station_id", using: :btree
+
+  create_table "routes", force: :cascade do |t|
+    t.integer  "start_station_id", null: false
+    t.integer  "end_station_id",   null: false
+    t.boolean  "monday"
+    t.boolean  "tuesday"
+    t.boolean  "wednesday"
+    t.boolean  "thursday"
+    t.boolean  "friday"
+    t.boolean  "saturday"
+    t.boolean  "sunday"
+    t.datetime "created_at",       null: false
+    t.datetime "updated_at",       null: false
+  end
+
+  add_index "routes", ["end_station_id"], name: "index_routes_on_end_station_id", using: :btree
+  add_index "routes", ["start_station_id"], name: "index_routes_on_start_station_id", using: :btree
+
+  create_table "stations", force: :cascade do |t|
+    t.string   "name",           null: false
+    t.integer  "number"
+    t.integer  "tariff_zone_id"
+    t.datetime "created_at",     null: false
+    t.datetime "updated_at",     null: false
+  end
+
+  add_index "stations", ["tariff_zone_id"], name: "index_stations_on_tariff_zone_id", using: :btree
+
+  create_table "tariff_zones", force: :cascade do |t|
+    t.string   "name",       null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "users", force: :cascade do |t|
     t.string   "email",                                       null: false
@@ -97,4 +142,9 @@ ActiveRecord::Schema.define(version: 20170409205031) do
 
   add_foreign_key "role_users", "roles"
   add_foreign_key "role_users", "users"
+  add_foreign_key "route_stations", "routes"
+  add_foreign_key "route_stations", "stations"
+  add_foreign_key "routes", "stations", column: "end_station_id"
+  add_foreign_key "routes", "stations", column: "start_station_id"
+  add_foreign_key "stations", "tariff_zones"
 end

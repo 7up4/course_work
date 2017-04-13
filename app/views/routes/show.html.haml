@@ -1,0 +1,37 @@
+%p#notice= notice
+
+%p
+  %b Start station:
+  = @route.start.name
+%p
+  %b End station:
+  = @route.end.name
+-# %p
+-#   %b Skipped stations:
+-#   = @route.end_station.name
+%p
+  %b Monday:
+  = @route.monday
+%p
+  %b Tuesday:
+  = @route.tuesday
+%p
+  %b Wednesday:
+  = @route.wednesday
+%p
+  %b Thursday:
+  = @route.thursday
+%p
+  %b Friday:
+  = @route.friday
+%p
+  %b Saturday:
+  = @route.saturday
+%p
+  %b Sunday:
+  = @route.sunday
+
+
+= link_to 'Edit', edit_route_path(@route)
+\|
+= link_to 'Back', routes_path

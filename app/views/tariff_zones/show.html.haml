@@ -1,0 +1,9 @@
+%p#notice= notice
+
+%p
+  %b Name:
+  = @tariff_zone.name
+
+= link_to 'Edit', edit_tariff_zone_path(@tariff_zone)
+\|
+= link_to 'Back', tariff_zones_path

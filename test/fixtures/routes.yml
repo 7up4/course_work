@@ -1,0 +1,9 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  start_station: 1
+  end_station: 1
+
+two:
+  start_station: 1
+  end_station: 1

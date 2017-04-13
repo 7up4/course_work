@@ -1,0 +1,19 @@
+= form_for @station do |f|
+  - if @station.errors.any?
+    #error_explanation
+      %h2= "#{pluralize(@station.errors.count, "error")} prohibited this station from being saved:"
+      %ul
+        - @station.errors.full_messages.each do |msg|
+          %li= msg
+
+  .field
+    = f.label :name
+    = f.text_field :name
+  .field
+    = f.label :number
+    = f.number_field :number
+  .field
+    = f.label :tariff_zone
+    = f.select :tariff_zone, TariffZone.all.collect{|t| [t.name, t.id]}, prompt: "Select a tariff zone"
+  .actions
+    = f.submit 'Save'

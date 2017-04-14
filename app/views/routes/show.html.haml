@@ -2,13 +2,14 @@
 
 %p
   %b Start station:
-  = @route.start.name
+  = @route.start.present? ? @route.start.name : nil
 %p
   %b End station:
-  = @route.end.name
--# %p
--#   %b Skipped stations:
--#   = @route.end_station.name
+  = @route.end.present? ? @route.end.name : nil
+%p
+  %b Skipped stations:
+  = @route.skipped_stations.map{|s| s.name}.join(", ")
+
 %p
   %b Monday:
   = @route.monday

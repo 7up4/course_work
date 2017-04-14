@@ -1,8 +1,8 @@
 class CreateRoutes < ActiveRecord::Migration
   def change
     create_table :routes do |t|
-      t.integer :start_station_id, index: true, null: false
-      t.integer :end_station_id, index:true, null: false
+      t.integer :start_station_id, index: true
+      t.integer :end_station_id, index:true
       t.boolean :monday
       t.boolean :tuesday
       t.boolean :wednesday

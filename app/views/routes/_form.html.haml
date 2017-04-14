@@ -5,18 +5,11 @@
       %ul
         - @route.errors.full_messages.each do |msg|
           %li= msg
-
-  .field
-    = f.label :start_station_id
-    = f.select :start_station_id, Station.all.collect{|s| [s.name, s.id]}, prompt: "Select a start station"
-  .field
-    = f.label :end_station_id
-    = f.select :end_station_id, Station.all.collect{|s| [s.name, s.id]}, prompt: "Select an end station"
-  -Station.all.each do |s|
+  -Station.all.each do |station|
     .field
-      = label_tag s.name
-      - tmp=s.route_stations.where(station_id: s, route_id: @route).first
-      = select_time (tmp.blank? ? Time.now : tmp.arrival_time ), {prefix: "arrival_time[#{s.id}]"}
+      = label_tag station.name
+      - route_station=station.route_stations.where(station_id: station, route_id: @route).first
+      = select_time (route_station.blank? ? nil : route_station.arrival_time ), {include_blank:true, prefix: "arrival_time[#{station.id}]"}
   .field
     = f.label :monday
     = f.check_box :monday

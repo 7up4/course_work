@@ -1,6 +1,5 @@
 class RoutesController < ApplicationController
   before_action :set_route, only: [:show, :edit, :update, :destroy]
-  after_action :set_arrival_time, only: [:update, :create]
 
   # GET /routes
   # GET /routes.json
@@ -26,6 +25,7 @@ class RoutesController < ApplicationController
   # POST /routes.json
   def create
     @route = Route.new(route_params)
+    @route.pass_attrs_to_model(params[:arrival_time])
     respond_to do |format|
       if @route.save
         format.html { redirect_to @route, notice: 'Route was successfully created.' }
@@ -40,6 +40,7 @@ class RoutesController < ApplicationController
   # PATCH/PUT /routes/1
   # PATCH/PUT /routes/1.json
   def update
+    @route.pass_attrs_to_model(params[:arrival_time])
     respond_to do |format|
       if @route.update(route_params)
         format.html { redirect_to @route, notice: 'Route was successfully updated.' }
@@ -69,21 +70,6 @@ class RoutesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def route_params
-      params.require(:route).permit(:start_station_id, :end_station_id, :monday, :tuesday, :wednesday, :thursday, :friday, :saturday, :sunday,
-      arrival_time: [:id, :year, :month, :day,  :hour, :minute])
-    end
-
-    def set_arrival_time
-      @route.stations.each do |s|
-        rs=s.route_stations.where(station_id: s, route_id: @route)
-        t=Time.new(
-          params[:arrival_time][s.id.to_s]["year"],
-          params[:arrival_time][s.id.to_s]["month"],
-          params[:arrival_time][s.id.to_s]["day"],
-          params[:arrival_time][s.id.to_s]["hour"],
-          params[:arrival_time][s.id.to_s]["minute"]
-        )
-        rs.update_all(:arrival_time=> t)
-      end
+      params.require(:route).permit(:start_station_id, :end_station_id, :monday, :tuesday, :wednesday, :thursday, :friday, :saturday, :sunday)
     end
 end

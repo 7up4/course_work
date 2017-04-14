@@ -5,6 +5,7 @@
     %tr
       %th Start station
       %th End station
+      %th Skipped stations
       %th
       %th
       %th
@@ -12,8 +13,9 @@
   %tbody
     - @routes.each do |route|
       %tr
-        %td= route.start.name
-        %td= route.end.name
+        %td= route.start.present? ? route.start.name : nil
+        %td= route.end.present? ? route.end.name : nil
+        %td= route.skipped_stations.map{|s| s.name}.join(", ")
         %td= link_to 'Show', route
         %td= link_to 'Edit', edit_route_path(route)
         %td= link_to 'Destroy', route, :method => :delete, :data => { :confirm => 'Are you sure?' }

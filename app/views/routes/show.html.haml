@@ -1,35 +1,35 @@
 %p#notice= notice
 
 %p
-  %b Start station:
+  %b= Route.human_attribute_name(:monday)+':'
   = @route.start.present? ? @route.start.name : nil
 %p
-  %b End station:
+  %b= Route.human_attribute_name(:end_station)+':'
   = @route.end.present? ? @route.end.name : nil
 %p
-  %b Skipped stations:
+  %b= Route.human_attribute_name(:skipped_stations)+':'
   = @route.skipped_stations.map{|s| s.name}.join(", ")
 
 %p
-  %b Monday:
+  %b= Route.human_attribute_name(:monday)+':'
   = @route.monday
 %p
-  %b Tuesday:
+  %b= Route.human_attribute_name(:tuesday)+':'
   = @route.tuesday
 %p
-  %b Wednesday:
+  %b= Route.human_attribute_name(:wednesday)+':'
   = @route.wednesday
 %p
-  %b Thursday:
+  %b= Route.human_attribute_name(:thursday)+':'
   = @route.thursday
 %p
-  %b Friday:
+  %b= Route.human_attribute_name(:friday)+':'
   = @route.friday
 %p
-  %b Saturday:
+  %b= Route.human_attribute_name(:saturday)+':'
   = @route.saturday
 %p
-  %b Sunday:
+  %b= Route.human_attribute_name(:sunday)+':'
   = @route.sunday
 
 

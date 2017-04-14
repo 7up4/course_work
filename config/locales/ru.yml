@@ -6,7 +6,7 @@ ru:
       department: Кафедра
     users:
       index: Список пользователей
-      new-button: Новый пользователь 
+      new-button: Новый пользователь
       edit: Редактирование пользователя
       new: Создание пользователя
     roles:
@@ -14,13 +14,18 @@ ru:
       new-button: Новая роль
       edit: Редактирование роли
       new: Создание роли
+    routes:
+      index: Список маршрутов
+      new-button: Новый маршрут
+      edit: Редактирование маршрута
+      new: Новый маршрут
   helpers:
     submit:
       create: Сохранить
       submit: Сохранить
       update: Сохранить
-    sure: Действительно удалить?      
-  
+    sure: Действительно удалить?
+
   views:
     pagination:
       first: ⇤
@@ -31,6 +36,8 @@ ru:
   activerecord:
     models:
       user: Пользователь
+      route: Маршрут
+      tariff_zone: Тарифная зона
     attributes:
       user:
         email: Пользовательское имя/электронная почта
@@ -45,10 +52,22 @@ ru:
         name: Обозначение
         info: Краткое название
         full_info: Описание
+      route:
+        start_station: Первая станция
+        end_station: Последняя станция
+        skipped_stations: Пропущенные станции
+        monday: Понедельник
+        tuesday: Вторник
+        wednesday: Среда
+        thursday: Четверг
+        friday: Пятница
+        saturday: Суббота
+        sunday: Воскресенье
+      tariff_zone:
+        name: Название
     errors:
       models:
         person:
           attributes:
             snils:
               check_sum: имеет неправильную контрольную сумму
-          

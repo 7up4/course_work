@@ -10,21 +10,26 @@ class Route < ActiveRecord::Base
   after_create :set_arrival_time, :set_start_end_stations
   after_update :set_arrival_time, :set_start_end_stations
 
+  # Получение из params времени прибытия
   def pass_attrs_to_model(attr)
     self.arrivals = attr
   end
-
 
   def skipped_stations
     self.stations.where("arrival_time IS ?", nil)
   end
 
+  def visited_stations
+    self.stations.where("arrival_time IS NOT ?", nil)
+  end
+
   protected
 
+  # Первая и конечная станции вычисляются временам прибытия
   def set_start_end_stations
     routes = self.route_stations.where.not(arrival_time: nil).order(arrival_time: :asc)
     if routes.blank?
-        self.update_columns(start_station_id: nil, end_station_id: nil)
+      self.update_columns(start_station_id: nil, end_station_id: nil)
     else
       start = routes.first
       finish = routes.last

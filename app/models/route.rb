@@ -6,8 +6,12 @@ class Route < ActiveRecord::Base
   has_many :route_stations, dependent: :destroy
   has_many :stations, through: :route_stations
 
-  before_create :add_stations
-  after_save :set_arrival_time, :set_start_end_stations
+  before_validation :add_stations, on: :create
+  after_create :set_arrival_time, :set_start_end_stations
+  after_update :set_arrival_time, :set_start_end_stations
+
+  validate :at_least_one_day
+  validate :at_least_two_stations
 
   # Получение из params времени прибытия
   def pass_attrs_to_model(attr)
@@ -23,6 +27,18 @@ class Route < ActiveRecord::Base
   end
 
   protected
+
+  def at_least_one_day
+    if [self.monday, self.tuesday, self.wednesday, self.thursday, self.friday, self.saturday, self.sunday].reject(&:blank?).size == 0
+      errors.add(:route, "Please choose at least one day.")
+    end
+  end
+
+  def at_least_two_stations
+    if self.arrivals.values.select{|arrival| !arrival[:hour].blank? && !arrival[:minute].blank?}.size < 2
+      errors.add(:route, "Please choose at least two stations.")
+    end
+  end
 
   # Первая и конечная станции вычисляются временам прибытия
   def set_start_end_stations

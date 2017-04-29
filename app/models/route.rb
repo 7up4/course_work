@@ -7,8 +7,7 @@ class Route < ActiveRecord::Base
   has_many :stations, through: :route_stations
 
   before_create :add_stations
-  after_create :set_arrival_time, :set_start_end_stations
-  after_update :set_arrival_time, :set_start_end_stations
+  after_save :set_arrival_time, :set_start_end_stations
 
   # Получение из params времени прибытия
   def pass_attrs_to_model(attr)
@@ -44,7 +43,9 @@ class Route < ActiveRecord::Base
   def set_arrival_time
     self.stations.each do |s|
       route_station=s.route_stations.where(station_id: s, route_id: self)
-      t=Time.zone.parse(self.arrivals[s.id.to_s][:hour]+":"+self.arrivals[s.id.to_s][:minute])
+      if !self.arrivals[s.id.to_s][:hour].blank? && !self.arrivals[s.id.to_s][:minute].blank?
+        t=Time.zone.parse(self.arrivals[s.id.to_s][:hour]+":"+self.arrivals[s.id.to_s][:minute])
+      end
       route_station.update_all(arrival_time: t)
     end
   end

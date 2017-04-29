@@ -1,7 +1,7 @@
 %p#notice= notice
 
 %p
-  %b= Route.human_attribute_name(:monday)+':'
+  %b= Route.human_attribute_name(:first_station)+':'
   = @route.start.present? ? @route.start.name : nil
 %p
   %b= Route.human_attribute_name(:end_station)+':'

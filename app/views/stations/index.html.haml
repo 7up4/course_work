@@ -1,11 +1,11 @@
-%h1 Listing stations
+%h1= t('app.stations.index')
 
 %table
   %thead
     %tr
-      %th Name
-      %th Number
-      %th Tariff zone
+      %th= Station.human_attribute_name(:name)
+      %th= Station.human_attribute_name(:number)
+      %th= Station.human_attribute_name(:tariff_zone)
       %th
       %th
       %th
@@ -16,10 +16,16 @@
         %td= station.name
         %td= station.number
         %td= station.tariff_zone
-        %td= link_to 'Show', station
-        %td= link_to 'Edit', edit_station_path(station)
-        %td= link_to 'Destroy', station, :method => :delete, :data => { :confirm => 'Are you sure?' }
+        %td
+          = link_to station, class: 'btn btn-success' do
+            = fa_icon :eye
+        %td
+          = link_to edit_station_path(station), class: 'btn btn-info' do
+            = fa_icon :edit
+        %td
+          = link_to station, :method => :delete, :data => { :confirm => t('helpers.sure') }, class: 'btn btn-danger' do
+            = fa_icon :times
 
 %br
 
-= link_to 'New Station', new_station_path
+= link_to t('app.stations.new-button'), new_station_path

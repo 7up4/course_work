@@ -18,7 +18,17 @@ ru:
       index: Список маршрутов
       new-button: Новый маршрут
       edit: Редактирование маршрута
-      new: Новый маршрут
+      new: Создание маршрута
+    stations:
+      index: Список станций
+      new-button: Новая станция
+      edit: Редактирование станции
+      new: Создание станции
+    tariff_zones:
+      index: Список тарифных зон
+      new-button: Новая тарифная зона
+      edit: Редактирование тарифной зоны
+      new: Создание тарифной зоны
   helpers:
     submit:
       create: Сохранить
@@ -38,6 +48,7 @@ ru:
       user: Пользователь
       route: Маршрут
       tariff_zone: Тарифная зона
+      station: Станция
     attributes:
       user:
         email: Пользовательское имя/электронная почта
@@ -65,6 +76,10 @@ ru:
         sunday: Воскресенье
       tariff_zone:
         name: Название
+      station:
+        name: Название
+        number: Номер
+        tariff_zone: Тарифная зона
     errors:
       models:
         person:

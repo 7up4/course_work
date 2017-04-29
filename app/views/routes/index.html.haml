@@ -16,10 +16,15 @@
         %td= route.start.present? ? route.start.name : nil
         %td= route.end.present? ? route.end.name : nil
         %td= route.skipped_stations.map{|s| s.name}.join(", ")
-        %td= link_to 'Show', route
-        %td= link_to 'Edit', edit_route_path(route)
-        %td= link_to 'Destroy', route, :method => :delete, :data => { :confirm => 'Are you sure?' }
-
+        %td
+          = link_to route, class: 'btn btn-success' do
+            = fa_icon :eye
+        %td
+          = link_to edit_route_path(route), class: 'btn btn-info' do
+            = fa_icon :edit
+        %td
+          = link_to route, :method => :delete, :data => { :confirm => t('helpers.sure') }, class: 'btn btn-danger' do
+            = fa_icon :times
 %br
 
 = link_to t('app.routes.new-button'), new_route_path

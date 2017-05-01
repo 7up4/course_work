@@ -7,13 +7,13 @@ class Station < ActiveRecord::Base
   has_many :route_stations
   has_many :routes, through: :route_stations
 
-  validates :name, presence: true
-
+  validates :name, :tariff_zone, :number, presence: true
+  validates :number, numericality: { greater_than: 0 }
   protected
 
   def remove_associations
     self.routes.delete(self.routes)
-    p Route.where('routes.start_station_id=?', id).each{|r| r.update_columns(start_station_id: nil)}
-    p Route.where('routes.end_station_id=?', id).each{|r| r.update_columns(end_station_id: nil)}
+    Route.where('routes.start_station_id=?', id).each{|r| r.update_columns(start_station_id: nil)}
+    Route.where('routes.end_station_id=?', id).each{|r| r.update_columns(end_station_id: nil)}
   end
 end

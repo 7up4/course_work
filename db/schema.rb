@@ -55,8 +55,8 @@ ActiveRecord::Schema.define(version: 20170501085108) do
   add_index "roles", ["name"], name: "index_roles_on_name", unique: true, using: :btree
 
   create_table "route_stations", force: :cascade do |t|
-    t.integer  "station_id"
-    t.integer  "route_id"
+    t.integer  "station_id",   null: false
+    t.integer  "route_id",     null: false
     t.time     "arrival_time"
     t.datetime "created_at",   null: false
     t.datetime "updated_at",   null: false
@@ -82,8 +82,8 @@ ActiveRecord::Schema.define(version: 20170501085108) do
 
   create_table "stations", force: :cascade do |t|
     t.string   "name",           null: false
-    t.integer  "number"
-    t.integer  "tariff_zone_id"
+    t.integer  "number",         null: false
+    t.integer  "tariff_zone_id", null: false
     t.datetime "created_at",     null: false
     t.datetime "updated_at",     null: false
   end

@@ -34,8 +34,25 @@ ru:
       create: Сохранить
       submit: Сохранить
       update: Сохранить
-    sure: Действительно удалить?
-
+  buttons:
+    edit: Редактировать
+    destroy: Удалить
+    show: Показать
+    confirm:
+      user: Действительно удалить пользователя?
+      role: Действительно удалить роль?
+    new:
+      user: Новый пользователь
+      role: Новая роль
+  headers:
+    users:
+      edit: Редактирование пользователя
+      new: Новый пользователь
+      index: Список пользователей
+    roles:
+      index: Список возможных ролей пользователей
+      edit: Редактирование роли
+      new: Новая роль
   views:
     pagination:
       first: ⇤
@@ -52,6 +69,7 @@ ru:
     attributes:
       user:
         email: Пользовательское имя/электронная почта
+        birthday: Дата рождения
         password: Пароль
         password_confirmation: Подтверждение пароля
         reset_password_email_sent_at: Дата отправления письма для смены пароля
@@ -80,9 +98,3 @@ ru:
         name: Название
         number: Номер
         tariff_zone: Тарифная зона
-    errors:
-      models:
-        person:
-          attributes:
-            snils:
-              check_sum: имеет неправильную контрольную сумму

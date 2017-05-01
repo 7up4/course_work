@@ -13,8 +13,8 @@
   %tbody
     - @routes.each do |route|
       %tr
-        %td= route.start.present? ? route.start.name : nil
-        %td= route.end.present? ? route.end.name : nil
+        %td= route.start_station.present? ? route.start_station.name : nil
+        %td= route.end_station.present? ? route.end_station.name : nil
         %td= route.skipped_stations.map{|s| s.name}.join(", ")
         %td
           = link_to route, class: 'btn btn-success' do

@@ -1,11 +1,11 @@
 %p#notice= notice
 
 %p
-  %b= Route.human_attribute_name(:first_station)+':'
-  = @route.start.present? ? @route.start.name : nil
+  %b= Route.human_attribute_name(:start_station)+':'
+  = @route.start_station.present? ? @route.start_station.name : nil
 %p
   %b= Route.human_attribute_name(:end_station)+':'
-  = @route.end.present? ? @route.end.name : nil
+  = @route.end_station.present? ? @route.end_station.name : nil
 %p
   %b= Route.human_attribute_name(:skipped_stations)+':'
   = @route.skipped_stations.map{|s| s.name}.join(", ")

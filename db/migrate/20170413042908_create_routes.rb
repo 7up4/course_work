@@ -1,8 +1,8 @@
 class CreateRoutes < ActiveRecord::Migration
   def change
     create_table :routes do |t|
-      t.integer :start_station_id, index: true
-      t.integer :end_station_id, index:true
+      t.integer :start_station_id
+      t.integer :end_station_id
       t.boolean :monday
       t.boolean :tuesday
       t.boolean :wednesday
@@ -13,7 +13,11 @@ class CreateRoutes < ActiveRecord::Migration
 
       t.timestamps null: false
     end
-    add_foreign_key :routes, :stations, column: :start_station_id
-    add_foreign_key :routes, :stations, column: :end_station_id
+    reversible do |dir|
+      dir.up do
+        execute("ALTER TABLE routes ADD FOREIGN KEY(start_station_id) REFERENCES stations(id)")
+        execute("ALTER TABLE routes ADD FOREIGN KEY(end_station_id) REFERENCES stations(id)")
+      end
+    end
   end
 end

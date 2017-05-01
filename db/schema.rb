@@ -80,9 +80,6 @@ ActiveRecord::Schema.define(version: 20170413051841) do
     t.datetime "updated_at",       null: false
   end
 
-  add_index "routes", ["end_station_id"], name: "index_routes_on_end_station_id", using: :btree
-  add_index "routes", ["start_station_id"], name: "index_routes_on_start_station_id", using: :btree
-
   create_table "stations", force: :cascade do |t|
     t.string   "name",           null: false
     t.integer  "number"
@@ -144,7 +141,7 @@ ActiveRecord::Schema.define(version: 20170413051841) do
   add_foreign_key "role_users", "users"
   add_foreign_key "route_stations", "routes"
   add_foreign_key "route_stations", "stations"
-  add_foreign_key "routes", "stations", column: "end_station_id"
-  add_foreign_key "routes", "stations", column: "start_station_id"
+  add_foreign_key "routes", "stations", column: "end_station_id", name: "routes_end_station_id_fkey"
+  add_foreign_key "routes", "stations", column: "start_station_id", name: "routes_start_station_id_fkey"
   add_foreign_key "stations", "tariff_zones"
 end

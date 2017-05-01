@@ -15,7 +15,7 @@
       %tr
         %td= station.name
         %td= station.number
-        %td= station.tariff_zone
+        %td= station.tariff_zone.present? ? station.tariff_zone.name : nil
         %td
           = link_to station, class: 'btn btn-success' do
             = fa_icon :eye

@@ -1,8 +1,8 @@
 class Route < ActiveRecord::Base
   attr_accessor :arrivals
 
-  belongs_to :start, class_name: "Station", foreign_key: "start_station_id"
-  belongs_to :end, class_name: "Station", foreign_key: "end_station_id"
+  belongs_to :start_station, class_name: "Station", dependent: :destroy
+  belongs_to :end_station, class_name: "Station", dependent: :destroy
   has_many :route_stations, dependent: :destroy
   has_many :stations, through: :route_stations
 
@@ -11,7 +11,7 @@ class Route < ActiveRecord::Base
   after_update :set_arrival_time, :set_start_end_stations
 
   validate :at_least_one_day
-  validate :at_least_two_stations
+  # validate :at_least_two_stations
 
   # Получение из params времени прибытия
   def pass_attrs_to_model(attr)
@@ -53,16 +53,18 @@ class Route < ActiveRecord::Base
   end
 
   def add_stations
-    Station.all.each{ |s| self.stations<<s if  !self.stations.include? s  }
+    Station.all.each{ |s| self.stations<<s if !self.stations.include? s  }
   end
 
   def set_arrival_time
-    self.stations.each do |s|
-      route_station=s.route_stations.where(station_id: s, route_id: self)
-      if !self.arrivals[s.id.to_s][:hour].blank? && !self.arrivals[s.id.to_s][:minute].blank?
-        t=Time.zone.parse(self.arrivals[s.id.to_s][:hour]+":"+self.arrivals[s.id.to_s][:minute])
+    if arrivals
+      self.stations.each do |s|
+        route_station=s.route_stations.where(station_id: s, route_id: self)
+        if !self.arrivals[s.id.to_s][:hour].blank? && !self.arrivals[s.id.to_s][:minute].blank?
+          t=Time.zone.parse(self.arrivals[s.id.to_s][:hour]+":"+self.arrivals[s.id.to_s][:minute])
+        end
+        route_station.update_all(arrival_time: t)
       end
-      route_station.update_all(arrival_time: t)
     end
   end
 end

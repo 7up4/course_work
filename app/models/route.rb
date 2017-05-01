@@ -6,7 +6,7 @@ class Route < ActiveRecord::Base
   has_many :route_stations, dependent: :destroy
   has_many :stations, through: :route_stations
 
-  before_validation :add_stations, on: :create
+  before_validation :add_stations
   after_create :set_arrival_time, :set_start_end_stations
   after_update :set_arrival_time, :set_start_end_stations
 
@@ -53,7 +53,7 @@ class Route < ActiveRecord::Base
   end
 
   def add_stations
-    Station.all.each{ |s| self.stations<<s }
+    Station.all.each{ |s| self.stations<<s if  !self.stations.include? s  }
   end
 
   def set_arrival_time

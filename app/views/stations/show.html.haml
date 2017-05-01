@@ -1,14 +1,14 @@
 %p#notice= notice
 
 %p
-  %b Name:
+  %b= Station.human_attribute_name(:name)+':'
   = @station.name
 %p
-  %b Number:
+  %b= Station.human_attribute_name(:number)+':'
   = @station.number
 %p
-  %b Tariff zone:
-  = @station.tariff_zone
+  %b= Station.human_attribute_name(:tariff_zone)+':'
+  = @station.tariff_zone ? @station.tariff_zone.name : nil
 
 = link_to 'Edit', edit_station_path(@station)
 \|

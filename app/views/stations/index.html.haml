@@ -23,9 +23,10 @@
           = link_to edit_station_path(station), class: 'btn btn-info' do
             = fa_icon :edit
         %td
-          = link_to station, :method => :delete, :data => { :confirm => t('helpers.sure') }, class: 'btn btn-danger' do
+          = link_to station, :method => :delete,
+          class: 'btn btn-danger' do
             = fa_icon :times
-
+            = t('buttons.destroy')
 %br
 
 = link_to t('app.stations.new-button'), new_station_path

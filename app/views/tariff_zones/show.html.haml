@@ -1,7 +1,7 @@
 %p#notice= notice
 
 %p
-  %b Name:
+  %b= TariffZone.human_attribute_name(:name)+':'
   = @tariff_zone.name
 
 = link_to 'Edit', edit_tariff_zone_path(@tariff_zone)

@@ -1,4 +1,15 @@
 ru:
+  cocoon:
+    defaults:
+      add: Новая запись
+      remove: Удалить запись
+    tariff_zone:
+      add: Новая тарифная зона
+    tariff_zones:
+      remove: Удалить тарифную зону
+    route_stations:
+      add: Новая станция
+      remove: Удалить станцию
   app:
     name: Базовое приложение
     company:
@@ -41,9 +52,13 @@ ru:
     confirm:
       user: Действительно удалить пользователя?
       role: Действительно удалить роль?
+      route: Действительно удалить маршрут?
+      station: Действительно удалить станцию?
     new:
       user: Новый пользователь
       role: Новая роль
+      route: Новый маршрут
+      station: Новая станция
   headers:
     users:
       edit: Редактирование пользователя
@@ -85,6 +100,7 @@ ru:
         start_station: Первая станция
         end_station: Последняя станция
         skipped_stations: Пропущенные станции
+        stations: Станции
         monday: Понедельник
         tuesday: Вторник
         wednesday: Среда
@@ -93,8 +109,10 @@ ru:
         saturday: Суббота
         sunday: Воскресенье
       tariff_zone:
-        name: Название
+        name: Название тарифной зоны
       station:
         name: Название
         number: Номер
         tariff_zone: Тарифная зона
+      route_station:
+        arrival_time: Вребя прибытия

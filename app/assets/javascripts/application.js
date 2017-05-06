@@ -14,6 +14,7 @@
 //= require jquery_ujs
 //= require turbolinks
 //= require jquery.maskedinput
+//= require cocoon
 //= require bootstrap
 //= require bootstrap-growl.min
 //= require moment

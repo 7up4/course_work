@@ -8,5 +8,4 @@ ready = ->
     else
       $.growl $(this).html(),
         type: type
-$(document).ready ready
-$(document).on 'page:load', ready
+$(document).on 'turbolinks:load', ready

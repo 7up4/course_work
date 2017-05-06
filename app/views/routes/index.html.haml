@@ -1,32 +1,36 @@
-%h1= t('app.routes.index')
+=breadcrumb_tag do
+  %li.active
+    Маршруты
+  %li
+    Администрирование
 
-%table
+.page-header
+  %h1= t('app.routes.index')
+
+%table.table.table-hover.table-striped
+  %caption
+    = link_to new_route_path, class: 'btn btn-success' do
+      = fa_icon :plus
+      = t('buttons.new.route')
   %thead
     %tr
       %th= Route.human_attribute_name(:start_station)
       %th= Route.human_attribute_name(:end_station)
       %th= Route.human_attribute_name(:skipped_stations)
       %th
-      %th
-      %th
-
   %tbody
     - @routes.each do |route|
       %tr
-        %td= route.start_station.present? ? route.start_station.name : nil
-        %td= route.end_station.present? ? route.end_station.name : nil
-        %td= route.skipped_stations.map{|s| s.name}.join(", ")
-        %td
-          = link_to route, class: 'btn btn-success' do
+        %td.center= route.start_station.present? ? route.start_station.name : nil
+        %td.center= route.end_station.present? ? route.end_station.name : nil
+        %td.center= route.skipped_stations.map{|s| s.name}.join(", ")
+        %td.right
+          = link_to route, class: 'btn btn-warning' do
             = fa_icon :eye
-        %td
+            = t('buttons.show')
           = link_to edit_route_path(route), class: 'btn btn-info' do
             = fa_icon :edit
-        %td
-          = link_to route, :method => :delete,
-          class: 'btn btn-danger' do
+            = t('buttons.edit')
+          = link_to route, :method => :delete, :data => { :confirm => t('buttons.confirm.route') }, class: 'btn btn-danger' do
             = fa_icon :times
             = t('buttons.destroy')
-%br
-
-= link_to t('app.routes.new-button'), new_route_path

@@ -1,0 +1,32 @@
+.nested-fields
+  .row
+    .col-md-2
+      .form-group
+        = f.label :arrival_time
+        .input-group.date.timepicker
+          = f.text_field(:arrival_time, value: nilTime(f.object.arrival_time), class: 'form-control')
+          %span.input-group-addon
+            %span.glyphicon.glyphicon-time
+        = f.error_messages_for(:arrival_time)
+
+    = f.fields_for :station, f.object.station || f.object.build_station do |s|
+      .col-md-4
+        .form-group
+          = s.label :name
+          = s.text_field :name, {class: "form-control"}
+      .col-md-2
+        .form-group
+          = s.label :number
+          = s.number_field :number, {class: "form-control", min: 0}
+      .col-md-4
+        .form-group#tariff_zone_select
+          = s.label :tariff_zone
+          = s.select :tariff_zone_id, TariffZone.all.collect{|t| [t.name, t.id]}, {include_blank: true}, {class: "form-control"}
+      .col-md-12
+        .form-group#tariff_zone
+          = s.fields_for :tariff_zone do |tz|
+            = render 'stations/tariff_zone_fields', f: tz
+          .links
+            = link_to_add_association s, :tariff_zone, partial: 'stations/tariff_zone_fields', class: 'btn btn-success'
+  .form-actions
+    = link_to_remove_association f, class: 'btn btn-danger'

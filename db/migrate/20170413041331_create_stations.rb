@@ -3,7 +3,7 @@ class CreateStations < ActiveRecord::Migration
     create_table :stations do |t|
       t.string :name, null: false
       t.integer :number, null: false
-      t.references :tariff_zone, index: true, foreign_key: true, null: false
+      t.references :tariff_zone, index: true, foreign_key: true
 
       t.timestamps null: false
     end

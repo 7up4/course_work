@@ -25,7 +25,6 @@ class RoutesController < ApplicationController
   # POST /routes.json
   def create
     @route = Route.new(route_params)
-    @route.pass_attrs_to_model(params[:arrival_time])
     respond_to do |format|
       if @route.save
         format.html { redirect_to @route, notice: 'Route was successfully created.' }
@@ -40,7 +39,9 @@ class RoutesController < ApplicationController
   # PATCH/PUT /routes/1
   # PATCH/PUT /routes/1.json
   def update
-    @route.pass_attrs_to_model(params[:arrival_time])
+    params[:route][:route_stations_attributes].each do |key, value|
+      params[:route][:station_ids]<<value[:station_attributes][:id]
+    end
     respond_to do |format|
       if @route.update(route_params)
         format.html { redirect_to @route, notice: 'Route was successfully updated.' }
@@ -70,6 +71,10 @@ class RoutesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def route_params
-      params.require(:route).permit(:start_station_id, :end_station_id, :monday, :tuesday, :wednesday, :thursday, :friday, :saturday, :sunday)
+      params.require(:route).permit(
+        :start_station_id, :end_station_id, :monday, :tuesday, :wednesday, :thursday, :friday, :saturday, :sunday,
+        station_ids: [],
+        route_stations_attributes: [:id, :arrival_time, :_destroy, station_attributes: [:id, :name, :number, :tariff_zone_id, :_destroy, tariff_zone_attributes: [:id, :name, :_destroy]]]
+      )
     end
 end

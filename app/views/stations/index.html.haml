@@ -1,32 +1,36 @@
-%h1= t('app.stations.index')
+=breadcrumb_tag do
+  %li.active
+    Станции
+  %li
+    Администрирование
 
-%table
+.page-header
+  %h1= t('app.stations.index')
+
+%table.table.table-hover.table-striped
+  %caption
+    = link_to new_station_path, class: 'btn btn-success' do
+      = fa_icon :plus
+      = t('buttons.new.station')
   %thead
     %tr
       %th= Station.human_attribute_name(:name)
       %th= Station.human_attribute_name(:number)
       %th= Station.human_attribute_name(:tariff_zone)
       %th
-      %th
-      %th
-
   %tbody
     - @stations.each do |station|
       %tr
-        %td= station.name
-        %td= station.number
-        %td= station.tariff_zone.present? ? station.tariff_zone.name : nil
-        %td
-          = link_to station, class: 'btn btn-success' do
+        %td.center= station.name
+        %td.center= station.number
+        %td.center= station.tariff_zone.present? ? station.tariff_zone.name : nil
+        %td.right
+          = link_to station, class: 'btn btn-warning' do
             = fa_icon :eye
-        %td
+            = t('buttons.show')
           = link_to edit_station_path(station), class: 'btn btn-info' do
             = fa_icon :edit
-        %td
-          = link_to station, :method => :delete,
-          class: 'btn btn-danger' do
+            = t('buttons.edit')
+          = link_to station, :method => :delete, :data => { :confirm => t('buttons.confirm.station') }, class: 'btn btn-danger' do
             = fa_icon :times
             = t('buttons.destroy')
-%br
-
-= link_to t('app.stations.new-button'), new_station_path

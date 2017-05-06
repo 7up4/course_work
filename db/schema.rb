@@ -83,7 +83,7 @@ ActiveRecord::Schema.define(version: 20170501085108) do
   create_table "stations", force: :cascade do |t|
     t.string   "name",           null: false
     t.integer  "number",         null: false
-    t.integer  "tariff_zone_id", null: false
+    t.integer  "tariff_zone_id"
     t.datetime "created_at",     null: false
     t.datetime "updated_at",     null: false
   end

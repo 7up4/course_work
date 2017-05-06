@@ -1,35 +1,33 @@
 = form_for @route do |f|
-  - if @route.errors.any?
-    #error_explanation
-      %h2= "#{pluralize(@route.errors.count, "error")} prohibited this route from being saved:"
-      %ul
-        - @route.errors.full_messages.each do |msg|
-          %li= msg
-  -Station.all.each do |station|
-    .field
-      = label_tag station.name
-      - route_station=station.route_stations.where(station_id: station, route_id: @route).first
-      = select_time (route_station.blank? ? nil : route_station.arrival_time ), {include_blank:true, prefix: "arrival_time[#{station.id}]"}
-  .field
+  = error_messages_for @route
+  .form-group
     = f.label :monday
     = f.check_box :monday
-  .field
+  .form-group
     = f.label :tuesday
     = f.check_box :tuesday
-  .field
+  .form-group
     = f.label :wednesday
     = f.check_box :wednesday
-  .field
+  .form-group
     = f.label :thursday
     = f.check_box :thursday
-  .field
+  .form-group
     = f.label :friday
     = f.check_box :friday
-  .field
+  .form-group
     = f.label :saturday
     = f.check_box :saturday
-  .field
+  .form-group
     = f.label :sunday
     = f.check_box :sunday
-  .actions
-    = f.submit 'Save'
+  .form-group
+    = f.label :stations
+    = f.collection_select :station_ids, Station.all.select{|x| !x.in? f.object.stations}, :id, :name, {}, {class: "form-control", multiple: true}
+  .form-group#route_stations
+    = f.fields_for :route_stations do |rs|
+      = render 'route_station_fields', f: rs
+    .links
+      = link_to_add_association f, :route_stations, class: 'btn btn-success'
+  .form-actions
+    = f.submit nil, class: 'btn btn-primary'

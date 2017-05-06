@@ -12,12 +12,14 @@
     .col-md-5
       .form-group#tariff_zone_select
         = f.label :tariff_zone
-        = f.select :tariff_zone_id, TariffZone.all.collect{|t| [t.name, t.id]}, {include_blank: true}, {class: "form-control"}
+        = f.collection_select :tariff_zone_id, TariffZone.all,:id, :name, {include_blank: true}, {class: "form-control"}
     .col-md-12
       .form-group#tariff_zone
         = f.fields_for :tariff_zone do |tz|
           = render 'tariff_zone_fields', f: tz
         .links
-          = link_to_add_association f, :tariff_zone, class: 'btn btn-success'
+          = link_to_add_association f, :tariff_zone, class: 'btn btn-success'  do
+            = fa_icon :plus
+            = t('cocoon.tariff_zone.add')
   .form-actions
     = f.submit nil, class: 'btn btn-primary'

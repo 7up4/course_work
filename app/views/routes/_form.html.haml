@@ -1,33 +1,42 @@
 = form_for @route do |f|
   = error_messages_for @route
-  .form-group
-    = f.label :monday
-    = f.check_box :monday
-  .form-group
-    = f.label :tuesday
-    = f.check_box :tuesday
-  .form-group
-    = f.label :wednesday
-    = f.check_box :wednesday
-  .form-group
-    = f.label :thursday
-    = f.check_box :thursday
-  .form-group
-    = f.label :friday
-    = f.check_box :friday
-  .form-group
-    = f.label :saturday
-    = f.check_box :saturday
-  .form-group
-    = f.label :sunday
-    = f.check_box :sunday
-  .form-group
-    = f.label :stations
-    = f.collection_select :station_ids, Station.all.select{|x| !x.in? f.object.stations}, :id, :name, {}, {class: "form-control", multiple: true}
+  .row.row-eq-height
+    .col-md-3
+      %table.table.table-hover.table-bordered.table-condensed
+        %thead
+          %tr
+            %th{colspan: 2}= f.label :days
+        %tbody
+          %tr
+            %td.center= f.label :monday
+            %td.center= f.check_box :monday
+          %tr
+            %td.center= f.label :tuesday
+            %td.center= f.check_box :tuesday
+          %tr
+            %td.center= f.label :wednesday
+            %td.center= f.check_box :wednesday
+          %tr
+            %td.center= f.label :thursday
+            %td.center= f.check_box :thursday
+          %tr
+            %td.center= f.label :friday
+            %td.center= f.check_box :friday
+          %tr
+            %td.center= f.label :saturday
+            %td.center= f.check_box :saturday
+          %tr
+            %td.center= f.label :sunday
+            %td.center= f.check_box :sunday
+    .form-group.col-md-9
+      = f.label :stations
+      = f.collection_select :station_ids, Station.all.select{|x| !x.in? f.object.stations}, :id, :name, {}, {class: "form-control", multiple: true}
   .form-group#route_stations
     = f.fields_for :route_stations do |rs|
       = render 'route_station_fields', f: rs
     .links
-      = link_to_add_association f, :route_stations, class: 'btn btn-success'
+      = link_to_add_association f, :route_stations, class: 'btn btn-success' do
+        = fa_icon :plus
+        = t('buttons.new.station')
   .form-actions
     = f.submit nil, class: 'btn btn-primary'

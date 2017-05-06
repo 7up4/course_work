@@ -5,5 +5,6 @@
         = f.label :name
         = f.text_field :name, {class: "form-control"}
   .form-actions
-    = link_to_remove_association f, class: 'btn btn-danger'
-    -# = link_to 'Close', '#', class: 'btn btn-danger close_nested_form'
+    = link_to_remove_association f, class: 'btn btn-danger' do
+      = fa_icon :times
+      = t('cocoon.tariff_zones.remove')

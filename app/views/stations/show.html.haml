@@ -1,3 +1,8 @@
+=breadcrumb_tag do
+  %li.active
+    = link_to(@station.name, @station)
+  %li
+    = link_to 'Станции', stations_path
 %p#notice= notice
 
 %p
@@ -9,7 +14,3 @@
 %p
   %b= Station.human_attribute_name(:tariff_zone)+':'
   = @station.tariff_zone ? @station.tariff_zone.name : nil
-
-= link_to 'Edit', edit_station_path(@station)
-\|
-= link_to 'Back', stations_path

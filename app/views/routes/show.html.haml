@@ -1,3 +1,8 @@
+=breadcrumb_tag do
+  %li.active
+    = link_to(@route.start_station.name + '-' + @route.end_station.name, @route)
+  %li
+    = link_to 'Маршруты', routes_path
 %p#notice= notice
 
 %p
@@ -31,8 +36,3 @@
 %p
   %b= Route.human_attribute_name(:sunday)+':'
   = @route.sunday
-
-
-= link_to 'Edit', edit_route_path(@route)
-\|
-= link_to 'Back', routes_path

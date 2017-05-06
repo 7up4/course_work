@@ -97,8 +97,9 @@ ru:
         info: Краткое название
         full_info: Описание
       route:
-        start_station: Первая станция
-        end_station: Последняя станция
+        start_station: Станция отправления
+        end_station: Станция назначения
+        days: Дни следования
         skipped_stations: Пропущенные станции
         stations: Станции
         monday: Понедельник

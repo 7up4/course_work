@@ -24,6 +24,7 @@ class RoutesController < ApplicationController
   # POST /routes
   # POST /routes.json
   def create
+    routes = params[:route][:route_stations_attributes]
     @route = Route.new(route_params)
     respond_to do |format|
       if @route.save
@@ -39,8 +40,11 @@ class RoutesController < ApplicationController
   # PATCH/PUT /routes/1
   # PATCH/PUT /routes/1.json
   def update
-    params[:route][:route_stations_attributes].each do |key, value|
-      params[:route][:station_ids]<<value[:station_attributes][:id]
+    routes = params[:route][:route_stations_attributes]
+    if !routes.blank?
+      params[:route][:route_stations_attributes].each do |key, value|
+        params[:route][:station_ids]<<value[:station_attributes][:id]
+      end
     end
     respond_to do |format|
       if @route.update(route_params)
@@ -74,7 +78,7 @@ class RoutesController < ApplicationController
       params.require(:route).permit(
         :start_station_id, :end_station_id, :monday, :tuesday, :wednesday, :thursday, :friday, :saturday, :sunday,
         station_ids: [],
-        route_stations_attributes: [:id, :arrival_time, :_destroy, station_attributes: [:id, :name, :number, :tariff_zone_id, :_destroy, tariff_zone_attributes: [:id, :name, :_destroy]]]
+        route_stations_attributes: [:id, :arrival_time, :station_id, :_destroy, station_attributes: [:id, :name, :number, :tariff_zone_id, :_destroy, tariff_zone_attributes: [:id, :name, :_destroy]]]
       )
     end
 end

@@ -5,7 +5,7 @@ class CreateRouteStations < ActiveRecord::Migration
       t.references :route, index: true, foreign_key: true, null: false
       t.time :arrival_time
 
-      t.index [:station_id, :route_id], unique: true
+      # t.index [:station_id, :route_id], unique: true
       t.timestamps null: false
     end
   end

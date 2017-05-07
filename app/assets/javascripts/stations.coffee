@@ -5,11 +5,11 @@ nested_stuff= (item) ->
   check_to_hide_or_show_add_link= ->
     if (item.find('.nested-fields:visible').length == 1)
       item.find('.links a').addClass('hidden')
-      item.closest('.row').find('#tariff_zone_select').find(':input').prop('disabled', true)
+      item.closest('.row').find('#tariff_zone_select').addClass('hidden')
       item.find(":input").prop('disabled', false)
     else
       item.find('.links a').removeClass('hidden')
-      item.closest('.row').find('#tariff_zone_select').find(':input').prop('disabled', false)
+      item.closest('.row').find('#tariff_zone_select').removeClass('hidden')
       item.find(":input").prop('disabled', true)
 
   item.on 'cocoon:after-insert', -> check_to_hide_or_show_add_link()

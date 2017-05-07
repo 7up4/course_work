@@ -24,8 +24,16 @@ class RoutesController < ApplicationController
   # POST /routes
   # POST /routes.json
   def create
-    routes = params[:route][:route_stations_attributes]
     @route = Route.new(route_params)
+    # Дать пользователю ввести время прибытия, если выбран элемент из списка
+    if !params[:route][:station_ids].reject { |c| c.empty? }.blank?
+      respond_to { |format| format.html { render :new } }
+      return
+    end
+    route_stations = params[:route][:route_stations_attributes]
+    if !route_stations.blank?
+      route_stations.each{ |key, value| params[:route][:station_ids]<<value[:station_attributes][:id]}
+    end
     respond_to do |format|
       if @route.save
         format.html { redirect_to @route, notice: 'Route was successfully created.' }
@@ -40,11 +48,9 @@ class RoutesController < ApplicationController
   # PATCH/PUT /routes/1
   # PATCH/PUT /routes/1.json
   def update
-    routes = params[:route][:route_stations_attributes]
-    if !routes.blank?
-      params[:route][:route_stations_attributes].each do |key, value|
-        params[:route][:station_ids]<<value[:station_attributes][:id]
-      end
+    route_stations = params[:route][:route_stations_attributes]
+    if !route_stations.blank?
+      route_stations.each{ |key, value| params[:route][:station_ids]<<value[:station_attributes][:id]}
     end
     respond_to do |format|
       if @route.update(route_params)
@@ -78,7 +84,7 @@ class RoutesController < ApplicationController
       params.require(:route).permit(
         :start_station_id, :end_station_id, :monday, :tuesday, :wednesday, :thursday, :friday, :saturday, :sunday,
         station_ids: [],
-        route_stations_attributes: [:id, :arrival_time, :station_id, :_destroy, station_attributes: [:id, :name, :number, :tariff_zone_id, :_destroy, tariff_zone_attributes: [:id, :name, :_destroy]]]
+        route_stations_attributes: [:id, :arrival_time, :station_id, :_destroy, station_attributes: [:id, :name, :tariff_zone_id, :_destroy, tariff_zone_attributes: [:id, :name, :_destroy]]]
       )
     end
 end

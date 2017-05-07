@@ -1,5 +1,6 @@
 class Route < ActiveRecord::Base
-  before_validation :set_start_end_stations
+  before_validation :initial_stations
+  after_save :set_start_end_stations
 
   belongs_to :start_station, class_name: "Station"
   belongs_to :end_station, class_name: "Station"
@@ -19,20 +20,22 @@ class Route < ActiveRecord::Base
 
   protected
 
+  # Первая станция в качестве start/end, т.к. новые объекты доступны лишь после сохранения
+  def initial_stations
+    if !route_stations.select{|rs| !rs.marked_for_destruction?}.blank?
+      self.start_station_id = Station.all.first.id
+      self.end_station_id = Station.all.first.id
+    else
+      self.start_station_id = nil
+      self.end_station_id = nil
+    end
+  end
+
   # Первая и конечная станции вычисляются временами прибытия
   def set_start_end_stations
     routes = route_stations.select{|rs| !rs.arrival_time.nil? && !rs.marked_for_destruction?}
-    if self.new_record? && !routes.blank?
-      if self.start_station_id.nil? || self.end_station_id.nil?
-        self.update_attributes(start_station_id: routes.first.station_id, end_station_id: routes.last.station_id)
-      end
-    elsif !self.new_record?
-      if !routes.blank?
-        self.update_columns(start_station_id: routes.first.station_id, end_station_id: routes.last.station_id)
-      else
-        self.start_station_id = nil
-        self.end_station_id = nil
-      end
+    if !self.new_record? && !routes.blank?
+      self.update_columns(start_station_id: routes.first.station_id, end_station_id: routes.last.station_id)
     end
   end
 end

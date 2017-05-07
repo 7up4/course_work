@@ -1,15 +1,15 @@
 =breadcrumb_tag do
   %li.active
-    = link_to(@route.start_station.name + '-' + @route.end_station.name, @route)
+    = link_to(station_name(@route.start_station) + ' - ' + station_name(@route.end_station), @route)
   %li
     = link_to 'Маршруты', routes_path
 %p#notice= notice
 
 %p
-  %b= Route.human_attribute_name(:start_station)+':'
+  %b= Route.human_attribute_name(:start_station_id)+':'
   = @route.start_station.present? ? @route.start_station.name : nil
 %p
-  %b= Route.human_attribute_name(:end_station)+':'
+  %b= Route.human_attribute_name(:end_station_id)+':'
   = @route.end_station.present? ? @route.end_station.name : nil
 %p
   %b= Route.human_attribute_name(:skipped_stations)+':'

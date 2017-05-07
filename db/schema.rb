@@ -87,6 +87,7 @@ ActiveRecord::Schema.define(version: 20170501085108) do
     t.datetime "updated_at",     null: false
   end
 
+  add_index "stations", ["number"], name: "index_stations_on_number", unique: true, using: :btree
   add_index "stations", ["tariff_zone_id"], name: "index_stations_on_tariff_zone_id", using: :btree
 
   create_table "tariff_zones", force: :cascade do |t|
@@ -94,6 +95,8 @@ ActiveRecord::Schema.define(version: 20170501085108) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
+
+  add_index "tariff_zones", ["name"], name: "index_tariff_zones_on_name", unique: true, using: :btree
 
   create_table "users", force: :cascade do |t|
     t.string   "email",                                       null: false

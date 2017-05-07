@@ -4,7 +4,7 @@ module ApplicationHelper
   end
 
   def nilTime(time)
-    time.nil? ? 'не указано' : DateTime.strptime(time.to_s.partition(/\s/).last, "%H:%M")
+    time.nil? ? 'не указано' : DateTime.parse(time.to_s).strftime("%H:%M")
   end
 
   def breadcrumb_tag(&block)

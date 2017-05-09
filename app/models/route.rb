@@ -1,6 +1,6 @@
 class Route < ActiveRecord::Base
-  before_validation :initial_stations
-  after_save :set_start_end_stations
+  after_commit :set_start_end_stations
+  before_save :nil_stations
 
   belongs_to :start_station, class_name: "Station"
   belongs_to :end_station, class_name: "Station"
@@ -11,31 +11,24 @@ class Route < ActiveRecord::Base
   validates :start_station_id, :end_station_id, presence: true
 
   def skipped_stations
-    stations.where("arrival_time IS ?", nil)
+    route_stations.where("arrival_time IS ?", nil).map{|s| s.station.name}
   end
 
   def visited_stations
-    stations.where("arrival_time IS NOT ?", nil)
+    route_stations.where("arrival_time IS NOT ?", nil).map{|s| s.station.name}
   end
 
   protected
 
-  # Первая станция в качестве start/end, т.к. новые объекты доступны лишь после сохранения
-  def initial_stations
-    if !route_stations.select{|rs| !rs.marked_for_destruction?}.blank?
-      self.start_station_id = Station.all.first.id
-      self.end_station_id = Station.all.first.id
-    else
-      self.start_station_id = nil
-      self.end_station_id = nil
-    end
+  # Перед обновлением записи обнуляем станции
+  def nil_stations
+    self.start_station_id = nil
+    self.end_station_id = nil
   end
 
   # Первая и конечная станции вычисляются временами прибытия
   def set_start_end_stations
-    routes = route_stations.select{|rs| !rs.arrival_time.nil? && !rs.marked_for_destruction?}
-    if !self.new_record? && !routes.blank?
-      self.update_columns(start_station_id: routes.first.station_id, end_station_id: routes.last.station_id)
-    end
+    rs = route_stations.select{|k| !k.arrival_time.nil? && !k.marked_for_destruction?}.sort_by {|x| x[:arrival_time]}
+    update_columns(start_station_id: rs.first.station_id, end_station_id: rs.last.station_id) if !rs.blank?
   end
 end

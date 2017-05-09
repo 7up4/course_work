@@ -13,7 +13,7 @@
   = @route.end_station.present? ? @route.end_station.name : nil
 %p
   %b= Route.human_attribute_name(:skipped_stations)+':'
-  = @route.skipped_stations.map{|s| s.name}.join(", ")
+  = @route.skipped_stations.join(", ")
 
 %p
   %b= Route.human_attribute_name(:monday)+':'

@@ -1,5 +1,4 @@
 class Station < ActiveRecord::Base
-  before_validation :set_number
   belongs_to :tariff_zone
 
   # Надо добавить нулификацию start/end_station_id
@@ -12,10 +11,4 @@ class Station < ActiveRecord::Base
 
   validates :name, :number, presence: true
   validates :number, numericality: { greater_than: 0 }, uniqueness: true
-
-  protected
-  # Порядковый номер станции на направлении
-  def set_number
-    self.number=Station.all.size+1
-  end
 end

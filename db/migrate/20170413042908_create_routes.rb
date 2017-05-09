@@ -1,8 +1,8 @@
 class CreateRoutes < ActiveRecord::Migration
   def change
     create_table :routes do |t|
-      t.integer :start_station_id, null: false, limit: 8
-      t.integer :end_station_id, null: false, limit: 8
+      t.integer :start_station_id, limit: 8
+      t.integer :end_station_id, limit: 8
       t.boolean :monday
       t.boolean :tuesday
       t.boolean :wednesday

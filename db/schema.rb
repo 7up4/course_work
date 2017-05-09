@@ -66,8 +66,8 @@ ActiveRecord::Schema.define(version: 20170501085108) do
   add_index "route_stations", ["station_id"], name: "index_route_stations_on_station_id", using: :btree
 
   create_table "routes", force: :cascade do |t|
-    t.integer  "start_station_id", limit: 8, null: false
-    t.integer  "end_station_id",   limit: 8, null: false
+    t.integer  "start_station_id", limit: 8
+    t.integer  "end_station_id",   limit: 8
     t.boolean  "monday"
     t.boolean  "tuesday"
     t.boolean  "wednesday"

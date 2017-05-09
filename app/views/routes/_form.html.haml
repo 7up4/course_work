@@ -28,9 +28,6 @@
           %tr
             %td.center= f.label :sunday
             %td.center= f.check_box :sunday
-    .form-group.col-md-9
-      = f.label :stations
-      = f.collection_select :station_ids, Station.all.select{|x| !x.in? f.object.route_stations.map{|r| r.station}}, :id, :name, {}, {class: "form-control", multiple: true}
   .form-group#route_stations
     = f.fields_for :route_stations do |rs|
       = render 'route_station_fields', f: rs

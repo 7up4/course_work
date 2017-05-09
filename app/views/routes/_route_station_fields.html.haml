@@ -2,22 +2,30 @@
   .row
     .col-md-2
       .form-group
+        = f.label :existing_station
+        = f.collection_select :station_id, Station.all, :id, :name, {include_blank: true}, {class: 'form-control', id: 'select_existing'}
+    .col-md-2
+      .form-group
         = f.label :arrival_time
         .input-group.date.timepicker
           = f.text_field(:arrival_time, value: nilTime(f.object.arrival_time), class: 'form-control')
           %span.input-group-addon
             %span.glyphicon.glyphicon-time
         = f.error_messages_for(:arrival_time)
-        = f.hidden_field :station_id, value: f.object.station.id if f.object.station.present?
     = f.fields_for :station, f.object.station || f.object.build_station do |s|
-      .col-md-5
+      = s.hidden_field :id, {class: "hidden_station_id"}
+      .col-md-4
         .form-group
           = s.label :name
-          = s.text_field :name, {class: "form-control"}
-      .col-md-5
+          = s.text_field :name, {class: "form-control name_field"}
+      .col-md-2
+        .form-group
+          = s.label :number
+          = s.number_field :number, {class: "form-control number_field", min: 1}
+      .col-md-4
         .form-group#tariff_zone_select
           = s.label :tariff_zone
-          = s.collection_select :tariff_zone_id, TariffZone.all, :id, :name, {include_blank: true}, {class: "form-control"}
+          = s.collection_select :tariff_zone_id, TariffZone.all, :id, :name, {include_blank: true}, {class: "form-control tariff_zone_id_field"}
       .col-md-12
         .form-group#tariff_zone
           = s.fields_for :tariff_zone do |tz|

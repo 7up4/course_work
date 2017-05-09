@@ -1,10 +1,15 @@
 = form_for @station do |f|
   = error_messages_for @station
   .row
-    .col-md-6
+    .col-md-5
       .form-group
         = f.label :name
-    .col-md-6
+        = f.text_field :name, {class: "form-control"}
+    .col-md-2
+      .form-group
+        = f.label :number
+        = f.number_field :number, {class: "form-control", min: 1}
+    .col-md-5
       .form-group#tariff_zone_select
         = f.label :tariff_zone
         = f.collection_select :tariff_zone_id, TariffZone.all,:id, :name, {include_blank: true}, {class: "form-control"}

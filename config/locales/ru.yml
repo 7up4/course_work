@@ -92,7 +92,7 @@ ru:
         activation_token_expires_at: Дата прекращения действия токена активации
         last_login_at: Время последнего входа в систему
         role_users: Роли
-      role: 
+      role:
         name: Обозначение
         info: Краткое название
         full_info: Описание
@@ -116,7 +116,10 @@ ru:
         number: Номер
         tariff_zone: Тарифная зона
       route_station:
-        arrival_time: Вребя прибытия
+        arrival_time: Время прибытия
+        existing_station: Станция
+      route_stations:
+        station: Станция
       # nested_start
       role_user: &role_users
       # nested_finish

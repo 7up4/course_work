@@ -1,5 +1,13 @@
 Rails.application.routes.draw do
-  resources :routes
+  resources :routes do
+    collection do
+      get '/fill_nested_form', to: 'routes#fill_nested_form', as: 'fill_nested_form'
+    end
+    member do
+      get '/fill_nested_form', to: 'routes#fill_nested_form', as: 'fill_nested_form'
+    end
+  end
+  
   resources :stations
   resources :tariff_zones
   resources :role_users

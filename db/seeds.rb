@@ -19,6 +19,7 @@ Route.delete_all
 10.times do |i|
   s = Station.create(
     name: "Station №"+(i+1).to_s,
-    tariff_zone: TariffZone.find(i/2+1)
+    tariff_zone: TariffZone.find(i/2+1),
+    number: i+1
   )
 end

@@ -12,6 +12,10 @@
           %span.input-group-addon
             %span.glyphicon.glyphicon-time
         = f.error_messages_for(:arrival_time)
+    .col-md-1
+      .form-group
+        = f.label :is_missed
+        = f.check_box :is_missed, {}, '1', '0'
     = f.fields_for :station, f.object.station || f.object.build_station do |s|
       = s.hidden_field :id, {class: "hidden_station_id"}
       .col-md-4

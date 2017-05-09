@@ -92,10 +92,10 @@ class RoutesController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def route_params
       params.require(:route).permit(
-        :start_station_id, :end_station_id, :monday, :tuesday, :wednesday, :thursday, :friday, :saturday, :sunday,
+        :start_station_id, :end_station_id, :mon, :tues, :wed, :thurs, :fri, :sat, :sun,
         station_ids:[],
         station_to_fill: [],
-        route_stations_attributes: [:id, :arrival_time, :station_id, :_destroy, station_attributes: [:id, :name, :number, :tariff_zone_id, :_destroy, tariff_zone_attributes: [:id, :name, :_destroy]]]
+        route_stations_attributes: [:id, :arrival_time, :is_missed, :station_id, :_destroy, station_attributes: [:id, :name, :number, :tariff_zone_id, :_destroy, tariff_zone_attributes: [:id, :name, :_destroy]]]
       )
     end
 end

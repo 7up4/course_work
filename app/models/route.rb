@@ -9,13 +9,15 @@ class Route < ActiveRecord::Base
 
   accepts_nested_attributes_for :route_stations, allow_destroy: true, reject_if: :all_blank
   validates :start_station_id, :end_station_id, presence: true
+  validate :at_least_two_stations
+  validate :at_least_one_day
 
   def skipped_stations
-    route_stations.where("arrival_time IS ?", nil).map{|s| s.station.name}
+    route_stations.where(is_missed: true).map{|s| s.station.name}
   end
 
   def visited_stations
-    route_stations.where("arrival_time IS NOT ?", nil).map{|s| s.station.name}
+    route_stations.where(is_missed: false).map{|s| s.station.name}
   end
 
   protected
@@ -26,9 +28,20 @@ class Route < ActiveRecord::Base
     self.end_station_id = nil
   end
 
+  # В маршруте хотя бы одна станция без пропуска
+  def at_least_one_day
+    days = [mon, tues, wed, thurs, fri, sat, sun]
+    errors.add(:route, 'must have at least one day') if days.select{|d| d}.empty?
+  end
+
+  # В маршруте хотя бы одна станция без пропуска
+  def at_least_two_stations
+    errors.add(:route, 'must have at least two stations') if route_stations.select{|k| !k.is_missed && !k.marked_for_destruction?}.size < 2
+  end
+
   # Первая и конечная станции вычисляются временами прибытия
   def set_start_end_stations
-    rs = route_stations.select{|k| !k.arrival_time.nil? && !k.marked_for_destruction?}.sort_by {|x| x[:arrival_time]}
+    rs = route_stations.select{|k| !k.is_missed && !k.marked_for_destruction?}.sort_by {|x| x[:arrival_time]}
     update_columns(start_station_id: rs.first.station_id, end_station_id: rs.last.station_id) if !rs.blank?
   end
 end

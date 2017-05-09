@@ -55,11 +55,12 @@ ActiveRecord::Schema.define(version: 20170501085108) do
   add_index "roles", ["name"], name: "index_roles_on_name", unique: true, using: :btree
 
   create_table "route_stations", force: :cascade do |t|
-    t.integer  "station_id",   null: false
-    t.integer  "route_id",     null: false
+    t.integer  "station_id",                   null: false
+    t.integer  "route_id",                     null: false
+    t.boolean  "is_missed",    default: false, null: false
     t.time     "arrival_time"
-    t.datetime "created_at",   null: false
-    t.datetime "updated_at",   null: false
+    t.datetime "created_at",                   null: false
+    t.datetime "updated_at",                   null: false
   end
 
   add_index "route_stations", ["route_id"], name: "index_route_stations_on_route_id", using: :btree
@@ -68,13 +69,13 @@ ActiveRecord::Schema.define(version: 20170501085108) do
   create_table "routes", force: :cascade do |t|
     t.integer  "start_station_id", limit: 8
     t.integer  "end_station_id",   limit: 8
-    t.boolean  "monday"
-    t.boolean  "tuesday"
-    t.boolean  "wednesday"
-    t.boolean  "thursday"
-    t.boolean  "friday"
-    t.boolean  "saturday"
-    t.boolean  "sunday"
+    t.boolean  "mon"
+    t.boolean  "tues"
+    t.boolean  "wed"
+    t.boolean  "thurs"
+    t.boolean  "fri"
+    t.boolean  "sat"
+    t.boolean  "sun"
     t.datetime "created_at",                 null: false
     t.datetime "updated_at",                 null: false
   end

@@ -102,13 +102,13 @@ ru:
         days: Дни следования
         skipped_stations: Пропущенные станции
         stations: Станции
-        monday: Понедельник
-        tuesday: Вторник
-        wednesday: Среда
-        thursday: Четверг
-        friday: Пятница
-        saturday: Суббота
-        sunday: Воскресенье
+        mon: Понедельник
+        tues: Вторник
+        wed: Среда
+        thurs: Четверг
+        fri: Пятница
+        sat: Суббота
+        sun: Воскресенье
       tariff_zone:
         name: Название тарифной зоны
       station:
@@ -118,6 +118,7 @@ ru:
       route_station:
         arrival_time: Время прибытия
         existing_station: Станция
+        is_missed: Станция пропущена
       route_stations:
         station: Станция
       # nested_start

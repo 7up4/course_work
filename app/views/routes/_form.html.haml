@@ -8,26 +8,26 @@
             %th{colspan: 2}= f.label :days
         %tbody
           %tr
-            %td.center= f.label :monday
-            %td.center= f.check_box :monday
+            %td.center= f.label :mon
+            %td.center= f.check_box :mon
           %tr
-            %td.center= f.label :tuesday
-            %td.center= f.check_box :tuesday
+            %td.center= f.label :tues
+            %td.center= f.check_box :tues
           %tr
-            %td.center= f.label :wednesday
-            %td.center= f.check_box :wednesday
+            %td.center= f.label :wed
+            %td.center= f.check_box :wed
           %tr
-            %td.center= f.label :thursday
-            %td.center= f.check_box :thursday
+            %td.center= f.label :thurs
+            %td.center= f.check_box :thurs
           %tr
-            %td.center= f.label :friday
-            %td.center= f.check_box :friday
+            %td.center= f.label :fri
+            %td.center= f.check_box :fri
           %tr
-            %td.center= f.label :saturday
-            %td.center= f.check_box :saturday
+            %td.center= f.label :sat
+            %td.center= f.check_box :sat
           %tr
-            %td.center= f.label :sunday
-            %td.center= f.check_box :sunday
+            %td.center= f.label :sun
+            %td.center= f.check_box :sun
   .form-group#route_stations
     = f.fields_for :route_stations do |rs|
       = render 'route_station_fields', f: rs

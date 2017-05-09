@@ -1,13 +1,5 @@
 Rails.application.routes.draw do
-  resources :routes do
-    collection do
-      get '/fill_nested_form', to: 'routes#fill_nested_form', as: 'fill_nested_form'
-    end
-    member do
-      get '/fill_nested_form', to: 'routes#fill_nested_form', as: 'fill_nested_form'
-    end
-  end
-  
+  resources :routes
   resources :stations
   resources :tariff_zones
   resources :role_users
@@ -19,6 +11,7 @@ Rails.application.routes.draw do
   get 'login' => 'welcome#new', :as => :login
   get 'logout' => 'welcome#destroy', :as => :logout
   post 'try_login' => 'welcome#create', :as => :try_login
+  get '/fill_nested_form' => 'routes#fill_nested_form'
   root 'welcome#index'
 
   resources :users do

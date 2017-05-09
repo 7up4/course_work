@@ -3,9 +3,9 @@
 # You can use CoffeeScript in this file: http://coffeescript.org/
 set_time_picker= -> $('.timepicker').datetimepicker({locale: 'ru', format: 'HH:mm', defaultDate: ""})
 existing_station_ajax= ->
-  $('#route_stations #select_existing').on 'change', (evt) ->
+  $('#route_stations #select_existing_station').on 'change', (evt) ->
     $.ajax
-      url: '/fill_nested_form',
+      url: '/fill_nested_station',
       type: 'GET',
       dataType: 'script',
       data: {
@@ -15,10 +15,9 @@ existing_station_ajax= ->
         console.log("AJAX Error: #{textStatus}")
       success: (data, textStatus, jqXHR) ->
         console.log("Dynamic station select OK!")
-$(document).on('turbolinks:load', ->
+$(document).on 'turbolinks:load', ->
   $('#route_stations').on 'cocoon:after-insert', ->
     set_time_picker()
     existing_station_ajax()
   set_time_picker()
   existing_station_ajax()
-)

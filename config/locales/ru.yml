@@ -10,6 +10,7 @@ ru:
     route_stations:
       add: Новая станция
       remove: Удалить станцию
+      drop: Убрать станцию
   app:
     name: Базовое приложение
     company:

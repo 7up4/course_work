@@ -21,9 +21,7 @@ class RoutesController < ApplicationController
   def edit
   end
 
-  # GET /routes/fill_nested_form
-  # GET /routes/id/fill_nested_form
-  def fill_nested_form
+  def fill_nested_station
     if !params[:station_to_fill].first.blank?
       @station = Station.where("id= ?", params[:station_to_fill].first).first
     else
@@ -93,8 +91,6 @@ class RoutesController < ApplicationController
     def route_params
       params.require(:route).permit(
         :start_station_id, :end_station_id, :mon, :tues, :wed, :thurs, :fri, :sat, :sun,
-        station_ids:[],
-        station_to_fill: [],
         route_stations_attributes: [:id, :arrival_time, :is_missed, :station_id, :_destroy, station_attributes: [:id, :name, :number, :tariff_zone_id, :_destroy, tariff_zone_attributes: [:id, :name, :_destroy]]]
       )
     end

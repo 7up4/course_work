@@ -21,6 +21,18 @@ class StationsController < ApplicationController
   def edit
   end
 
+  def fill_nested_tariff_zone
+    if !params[:tariff_zone_to_fill].first.blank?
+      @tariff_zone = TariffZone.where("id= ?", params[:tariff_zone_to_fill].first).first
+    else
+      @tariff_zone = nil
+    end
+    @nested_form_name = params[:tariff_zone_to_fill].second
+    respond_to do |format|
+      format.js
+    end
+  end
+  
   # POST /stations
   # POST /stations.json
   def create

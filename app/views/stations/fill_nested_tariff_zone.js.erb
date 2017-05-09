@@ -1,0 +1,10 @@
+select_name = "'<%= @nested_form_name %>'";
+select_field = $("#select_existing_tariff_zone[name="+select_name+"]");
+nested_form = select_field.parent().parent().next()
+<% if @tariff_zone.nil? %>
+  nested_form.find('.hidden_tariff_zone_id').val('');
+  nested_form.find('.tariff_zone_name_field').val('');
+<% else %>
+  nested_form.find('.hidden_tariff_zone_id').val("<%= @tariff_zone.id %>");
+  nested_form.find('.tariff_zone_name_field').val("<%= @tariff_zone.name %>");
+<% end %>

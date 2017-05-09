@@ -1,11 +1,5 @@
 .nested-fields#tariff_zone
-  .row
-    .col-md-5
-      .form-group
-        = f.label :name
-        = f.text_field :name, {class: "form-control tariff_zone_name_field"}
-        = f.hidden_field :id, {class: "hidden_tariff_zone_id"}
-  .form-actions
-    = link_to_remove_association f, class: 'btn btn-danger' do
-      = fa_icon :times
-      = t('cocoon.tariff_zones.remove')
+  .form-group
+    = f.label :name
+    = f.text_field :name, {class: "form-control tariff_zone_name_field"}
+    = f.hidden_field :id, {class: "hidden_tariff_zone_id"}

@@ -12,5 +12,6 @@
  *
  *= require theme
  *= require bootstrap-datetimepicker
+ *= require bootstrap-switch.min
  *= require_self
  */

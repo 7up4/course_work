@@ -1,7 +1,7 @@
 class Route < ActiveRecord::Base
   after_commit :set_start_end_stations
   before_save :nil_stations
-
+  
   belongs_to :start_station, class_name: "Station"
   belongs_to :end_station, class_name: "Station"
   has_many :route_stations, inverse_of: :route, dependent: :destroy
@@ -11,7 +11,8 @@ class Route < ActiveRecord::Base
   validates :start_station_id, :end_station_id, presence: true
   validate :at_least_two_stations
   validate :at_least_one_day
-
+  validate :uniq_stations
+  
   def skipped_stations
     route_stations.where(is_missed: true).map{|s| s.station.name}
   end
@@ -28,15 +29,22 @@ class Route < ActiveRecord::Base
     self.end_station_id = nil
   end
 
+  # В маршруте не должно быть одинаковых станций
+  def uniq_stations
+    rs = route_stations.select{|k| !k.marked_for_destruction?}
+    stations = rs.map{|x| x.station_id}.uniq
+    errors.add(:base, :uniq_stations) if stations.length < rs.length
+  end
+  
   # В маршруте хотя бы одна станция без пропуска
   def at_least_one_day
     days = [mon, tues, wed, thurs, fri, sat, sun]
-    errors.add(:route, 'must have at least one day') if days.select{|d| d}.empty?
+    errors.add(:base, :at_least_one_day) if days.select{|d| d}.empty?
   end
 
   # В маршруте хотя бы одна станция без пропуска
   def at_least_two_stations
-    errors.add(:route, 'must have at least two stations') if route_stations.select{|k| !k.is_missed && !k.marked_for_destruction?}.size < 2
+    errors.add(:base, :at_least_two_stations) if route_stations.select{|k| !k.is_missed && !k.marked_for_destruction?}.size < 2
   end
 
   # Первая и конечная станции вычисляются временами прибытия

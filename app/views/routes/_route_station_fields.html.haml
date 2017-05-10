@@ -14,10 +14,10 @@
         = f.error_messages_for(:arrival_time)
     .col-md-4
       .form-group
-        = f.label :is_missed
-        = f.check_box :is_missed, {}, '1', '0'
+        = f.label :is_missed, {class: 'check_box_label'}
+        = f.check_box :is_missed, {class: 'switch', data: {size: 'small', 'on-text': t('buttons.switch_yes'), 'off-text':  t('buttons.switch_no')}}, '1', '0'
     = f.fields_for :station, f.object.station || f.object.build_station do |s|
-      .row#nested_station
+      .row.nested_station
         = s.hidden_field :id, {class: "hidden_station_id"}
         .col-md-6
           .form-group
@@ -27,7 +27,7 @@
           .form-group
             = s.label :number
             = s.number_field :number, {class: "form-control number_field", min: 1}
-      .row
+      .row.row.nested_station
         .col-md-6
           .form-group#tariff_zone_select
             = s.label :tariff_zone

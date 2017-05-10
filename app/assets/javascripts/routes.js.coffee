@@ -2,6 +2,7 @@
 # All this logic will automatically be available in application.js.
 # You can use CoffeeScript in this file: http://coffeescript.org/
 set_time_picker= -> $('.timepicker').datetimepicker({locale: 'ru', format: 'HH:mm', defaultDate: ""})
+set_checkbox= -> $('.switch:checkbox').bootstrapSwitch();
 existing_station_ajax= ->
   $('#route_stations #select_existing_station').on 'change', (evt) ->
     $.ajax
@@ -19,5 +20,7 @@ $(document).on 'turbolinks:load', ->
   $('#route_stations').on 'cocoon:after-insert', ->
     set_time_picker()
     existing_station_ajax()
+    set_checkbox()
   set_time_picker()
   existing_station_ajax()
+  set_checkbox()

@@ -1,6 +1,6 @@
 select_name = "'<%= @nested_form_name %>'";
 select_field = $("#select_existing_station[name="+select_name+"]");
-nested_form = select_field.closest('.nested-fields').find('.row#nested_station')
+nested_form = select_field.closest('.nested-fields').find('.row.nested_station')
 <% if @station.nil? %>
   nested_form.find('.hidden_station_id').val('');
   nested_form.find('.hidden_tariff_zone_id').val('');

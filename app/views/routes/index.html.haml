@@ -17,10 +17,10 @@
         %h3
           Маршрут
           = index + 1
-        %b= Route.human_attribute_name(:start_station)
+        %b= Route.human_attribute_name(:start_station_id)
         %p= route.start_station.present? ? route.start_station.name : nil
 
-        %b= Route.human_attribute_name(:end_station)
+        %b= Route.human_attribute_name(:end_station_id)
         %p= route.end_station.present? ? route.end_station.name : nil
 
         %b= Route.human_attribute_name(:skipped_stations)

@@ -1,4 +1,9 @@
 ru:
+  errors: &errors
+    messages: 
+      uniq_stations: Все станции должны быть уникальны
+      at_least_one_day: Должен быть, как минимум, один день следования
+      at_least_two_stations: Должны быть установлены станции отправления и назначения
   cocoon:
     defaults:
       add: Новая запись
@@ -8,7 +13,7 @@ ru:
     tariff_zones:
       remove: Удалить тарифную зону
     route_stations:
-      add: Новая станция
+      add: Добавить станцию
       remove: Удалить станцию
       drop: Убрать станцию
   app:
@@ -47,6 +52,8 @@ ru:
       submit: Сохранить
       update: Сохранить
   buttons:
+    switch_yes: Да
+    switch_no: Нет
     edit: Редактировать
     destroy: Удалить
     show: Показать

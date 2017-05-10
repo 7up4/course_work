@@ -4,35 +4,16 @@
   %li
     = link_to 'Маршруты', routes_path
 %p#notice= notice
-
 %p
   %b= Route.human_attribute_name(:start_station_id)+':'
   = @route.start_station.present? ? @route.start_station.name : nil
 %p
   %b= Route.human_attribute_name(:end_station_id)+':'
   = @route.end_station.present? ? @route.end_station.name : nil
+- if @route.skipped_stations.present?
+  %p
+    %b= Route.human_attribute_name(:skipped_stations)+':'
+    = @route.skipped_stations.join(", ")
 %p
-  %b= Route.human_attribute_name(:skipped_stations)+':'
-  = @route.skipped_stations.join(", ")
-
-%p
-  %b= Route.human_attribute_name(:mon)+':'
-  = @route.mon
-%p
-  %b= Route.human_attribute_name(:tues)+':'
-  = @route.tues
-%p
-  %b= Route.human_attribute_name(:wed)+':'
-  = @route.wed
-%p
-  %b= Route.human_attribute_name(:thurs)+':'
-  = @route.thurs
-%p
-  %b= Route.human_attribute_name(:fri)+':'
-  = @route.fri
-%p
-  %b= Route.human_attribute_name(:sat)+':'
-  = @route.sat
-%p
-  %b= Route.human_attribute_name(:sun)+':'
-  = @route.sun
+  %b= Route.human_attribute_name(:days)+':'
+  = get_days(@route)

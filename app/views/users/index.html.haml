@@ -1,36 +1,25 @@
--# 
-  Эта страница не адаптивна! Так как сделать подобные сраницы адаптивными -
-  это отдельное задание! 
 =breadcrumb_tag do
   %li.active
     Пользователи
   %li
     Администрирование
-
 .page-header
   %h1= t('headers.users.index')
-
-%table.table.table-hover.table-striped
+.row
   %caption
     = link_to new_user_path, class: 'btn btn-success' do
       = fa_icon :plus
-      = t('buttons.new.user')      
-  %thead
-    %tr
-      %th= User.human_attribute_name(:email)
-      %th= User.human_attribute_name(:birthday)
-      %th
-  %tbody
+      = t('buttons.new.user')    
+.row
+  .flex-container
     - @users.each do |user|
-      %tr
-        %td.center= user.email
-        %td.center= lnil(user.birthday)
-        %td.right
+      .flex-block
+        %b= User.human_attribute_name(:email)
+        %p= user.email
+        %b= User.human_attribute_name(:birthday)
+        %p= lnil(user.birthday)
+        .buttons.bottom-right-corner
           = link_to edit_user_path(user), class: 'btn btn-info' do
             = fa_icon :edit
-            = t('buttons.edit')
-          = link_to user, :method => :delete, 
-          :data => { :confirm => t('buttons.confirm.user') }, 
-          class: 'btn btn-danger' do
+          = link_to user, :method => :delete, :data => { :confirm => t('buttons.confirm.user') }, class: 'btn btn-danger' do
             = fa_icon :times
-            = t('buttons.destroy')

@@ -1,25 +1,25 @@
 // Place all the styles related to the Routes controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
-.main-index-block
+.flex-container
   display: flex
   justify-content: space-around
   flex-wrap: wrap
-  width: 100%
 
-.index-block
-  width: 40%
-  @media (min-width: $screen-xs)
+.flex-block
+  position: relative
+  width: 45%
+  text-align: center
+  margin: 0.75em
+  @media (max-width: $screen-md)
     width: 80%
-    text-align: center
-  border: 1px solid #ddd
-  box-shadow: 0 0 1em #ddd
-  padding: 1em
-  margin: 0.5em 0
+  -webkit-box-shadow: 5px -2px 32px 0px rgba(93,93,102,1)
+  -moz-box-shadow: 5px -2px 32px 0px rgba(93,93,102,1)
+  box-shadow: 5px -2px 32px 0px rgba(93,93,102,1)
+  padding-top: 1em
 
-.index-btn
-  white-space: normal
-  width: 100px
-
-.check_box_label
+.checkbox-label
   display: block
+
+.bottom-right-corner
+  text-align: right

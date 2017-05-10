@@ -14,10 +14,10 @@
         = f.error_messages_for(:arrival_time)
     .col-md-4
       .form-group
-        = f.label :is_missed, {class: 'check_box_label'}
+        = f.label :is_missed, {class: 'checkbox-label'}
         = f.check_box :is_missed, {class: 'switch', data: {size: 'small', 'on-text': t('buttons.switch_yes'), 'off-text':  t('buttons.switch_no')}}, '1', '0'
     = f.fields_for :station, f.object.station || f.object.build_station do |s|
-      .row.nested_station
+      .nested_station
         = s.hidden_field :id, {class: "hidden_station_id"}
         .col-md-6
           .form-group
@@ -27,7 +27,7 @@
           .form-group
             = s.label :number
             = s.number_field :number, {class: "form-control number_field", min: 1}
-      .row.row.nested_station
+      .nested_station
         .col-md-6
           .form-group#tariff_zone_select
             = s.label :tariff_zone
@@ -40,6 +40,6 @@
     = link_to_remove_association f, class: 'btn btn-danger' do
       = fa_icon :times
       = t('cocoon.route_stations.drop')
-    -# = link_to route_station_path(@route.stations.first), method: :delete, class: 'btn btn-danger' do
-    -#   = fa_icon :times
-    -#   = t('cocoon.route_stations.remove')
+      -# = link_to route_station_path(@route.stations.first), method: :delete, class: 'btn btn-danger' do
+      -#   = fa_icon :times
+      -#   = t('cocoon.route_stations.remove')

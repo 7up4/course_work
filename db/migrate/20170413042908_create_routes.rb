@@ -1,8 +1,8 @@
 class CreateRoutes < ActiveRecord::Migration
   def change
     create_table :routes do |t|
-      t.integer :start_station_id, limit: 8
-      t.integer :end_station_id, limit: 8
+      t.integer :start_station_id
+      t.integer :end_station_id
       t.boolean :mon
       t.boolean :tues
       t.boolean :wed

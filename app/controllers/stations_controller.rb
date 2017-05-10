@@ -66,9 +66,9 @@ class StationsController < ApplicationController
   # DELETE /stations/1
   # DELETE /stations/1.json
   def destroy
-    @station.destroy
+    message = @station.destroy ? "Station was successfully destroyed." : "#{@station.errors[:base].first.to_s}"
     respond_to do |format|
-      format.html { redirect_to stations_url, notice: 'Station was successfully destroyed.' }
+      format.html { redirect_to stations_url, notice: message }
       format.json { head :no_content }
     end
   end

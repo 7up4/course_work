@@ -1,7 +1,7 @@
 class CreateStations < ActiveRecord::Migration
   def change
     create_table :stations do |t|
-      t.string :name, null: false
+      t.string :name, limit: 64, null: false
       t.integer :number, null: false
       # Можно удалить тарифную зону, не удалив станцию
       t.references :tariff_zone, index: true, foreign_key: true

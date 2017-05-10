@@ -67,8 +67,8 @@ ActiveRecord::Schema.define(version: 20170501085108) do
   add_index "route_stations", ["station_id"], name: "index_route_stations_on_station_id", using: :btree
 
   create_table "routes", force: :cascade do |t|
-    t.integer  "start_station_id", limit: 8
-    t.integer  "end_station_id",   limit: 8
+    t.integer  "start_station_id"
+    t.integer  "end_station_id"
     t.boolean  "mon"
     t.boolean  "tues"
     t.boolean  "wed"
@@ -76,25 +76,25 @@ ActiveRecord::Schema.define(version: 20170501085108) do
     t.boolean  "fri"
     t.boolean  "sat"
     t.boolean  "sun"
-    t.datetime "created_at",                 null: false
-    t.datetime "updated_at",                 null: false
+    t.datetime "created_at",       null: false
+    t.datetime "updated_at",       null: false
   end
 
   create_table "stations", force: :cascade do |t|
-    t.string   "name",           null: false
-    t.integer  "number",         null: false
+    t.string   "name",           limit: 64, null: false
+    t.integer  "number",                    null: false
     t.integer  "tariff_zone_id"
-    t.datetime "created_at",     null: false
-    t.datetime "updated_at",     null: false
+    t.datetime "created_at",                null: false
+    t.datetime "updated_at",                null: false
   end
 
   add_index "stations", ["number"], name: "index_stations_on_number", unique: true, using: :btree
   add_index "stations", ["tariff_zone_id"], name: "index_stations_on_tariff_zone_id", using: :btree
 
   create_table "tariff_zones", force: :cascade do |t|
-    t.string   "name",       null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.string   "name",       limit: 64, null: false
+    t.datetime "created_at",            null: false
+    t.datetime "updated_at",            null: false
   end
 
   add_index "tariff_zones", ["name"], name: "index_tariff_zones_on_name", unique: true, using: :btree

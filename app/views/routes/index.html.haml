@@ -21,8 +21,9 @@
         %p= route.end_station.present? ? route.end_station.name : nil
         %b= Route.human_attribute_name(:days)
         %p= get_days(route)
-        %b= Route.human_attribute_name(:skipped_stations)
-        %p= route.skipped_stations.join(", ")
+        - if route.skipped_stations.present?
+          %b= Route.human_attribute_name(:skipped_stations)
+          %p= route.skipped_stations.join(", ")
         .buttons.bottom-right-corner
           = link_to route, class: 'btn btn-warning' do
             = fa_icon :eye

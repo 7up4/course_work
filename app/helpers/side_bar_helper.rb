@@ -24,15 +24,15 @@ module SideBarHelper
        :class => 'long'},
     ]} 
     result << {
-      :name => 'Заголовок ссылок',
-      :icon => 'search-plus',
+      :name => 'Интерфейс',
+      :icon => 'vcard',
       :children => [
-      {:name => 'Ссылка ребёнок',
-       :controller => :welcome, :action => :index,
-       :icon => 'binoculars'},
-      {:name => 'Ссылка ребёнок',
-       :controller => :welcome, :action => :index,
-       :icon => 'search',
+      {:name => 'Станции',
+       :controller => :stations, :action => :index,
+       :icon => 'road'},
+      {:name => 'Расписание',
+       :controller => :routes, :action => :index,
+       :icon => 'train',
        :class => 'long'}
     ]} 
     result

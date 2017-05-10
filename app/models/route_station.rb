@@ -17,6 +17,6 @@ class RouteStation < ActiveRecord::Base
   end
 
   def not_missed?
-    errors.add(:route_station, 'must have an arrival_time') if !self.is_missed && self.arrival_time.blank?
+    errors.add(:base, :station_not_missed) if !self.is_missed && self.arrival_time.blank?
   end
 end

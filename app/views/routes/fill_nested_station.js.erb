@@ -10,9 +10,15 @@ nested_form = select_field.closest('.nested-fields').find('.nested_station')
   nested_form.find('.tariff_zone_name_field').val('');
 <% else %>
   nested_form.find('.hidden_station_id').val("<%= @station.id %>");
-  nested_form.find('.hidden_tariff_zone_id').val("<%= @station.tariff_zone.id %>");
   nested_form.find('.name_field').val("<%= @station.name %>");
   nested_form.find('.number_field').val("<%= @station.number %>");
-  nested_form.find('.tariff_zone_id_field').val("<%= @station.tariff_zone.id %>");
-  nested_form.find('.tariff_zone_name_field').val("<%= @station.tariff_zone.name %>");
+  <% if @station.tariff_zone.nil? %>
+    nested_form.find('.hidden_tariff_zone_id').val('');
+    nested_form.find('.tariff_zone_id_field').val('');
+    nested_form.find('.tariff_zone_name_field').val('');
+  <% else %>
+    nested_form.find('.hidden_tariff_zone_id').val("<%= @station.tariff_zone.id %>");
+    nested_form.find('.tariff_zone_id_field').val("<%= @station.tariff_zone.id %>");
+    nested_form.find('.tariff_zone_name_field').val("<%= @station.tariff_zone.name %>");
+  <% end %>
 <% end %>

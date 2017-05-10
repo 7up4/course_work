@@ -1,10 +1,11 @@
 ru:
-  errors: &errors
+  errors:
     messages: 
       uniq_stations: Все станции должны быть уникальны
       at_least_one_day: Должен быть, как минимум, один день следования
-      at_least_two_stations: Необходимо не менее двух непропущенных станций
+      at_least_two_stations: Необходимо наличие не менее двух непропущенных станций
       any_route: Ошибка! Станция является отправной или конечной в одном из маршрутов
+      station_not_missed: Не задано время прибытия для непропущенной станции
   cocoon:
     defaults:
       add: Новая запись
@@ -129,6 +130,8 @@ ru:
         existing_station: Станция
         is_missed: Станция пропущена
       route_stations:
+        base: ''
+        route: Маршрут
         station: Станция
       # nested_start
       role_user: &role_users

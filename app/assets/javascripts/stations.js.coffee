@@ -40,7 +40,7 @@ existing_tariff_zone_ajax= ->
   $('#tariff_zone_select #select_existing_tariff_zone').on 'change', (evt) ->
     $.ajax
       url: '/fill_nested_tariff_zone',
-      type: 'GET',
+      type: 'POST',
       dataType: 'script',
       data: {
         tariff_zone_to_fill: [$(this).val(), $(this).attr('name')]

@@ -22,7 +22,7 @@ module SideBarHelper
        :controller => :roles, :action => :index,
        :icon => 'align-center',
        :class => 'long'},
-    ]} 
+    ]} if @current_role_user.try(:is_admin?)
     result << {
       :name => 'Интерфейс',
       :icon => 'vcard',

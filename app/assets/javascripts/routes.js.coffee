@@ -7,7 +7,7 @@ existing_station_ajax= ->
   $('#route_stations #select_existing_station').on 'change', (evt) ->
     $.ajax
       url: '/fill_nested_station',
-      type: 'GET',
+      type: 'POST',
       dataType: 'script',
       data: {
         station_to_fill: [$(this).val(), $(this).attr('name')]

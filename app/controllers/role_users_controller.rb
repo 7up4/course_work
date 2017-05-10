@@ -1,6 +1,6 @@
 class RoleUsersController < ApplicationController
   before_action :set_role_user, only: [:show, :edit, :update, :destroy]
-
+  before_action -> {check_permissions('admin')}
   # GET /role_users
   # GET /role_users.json
   def index

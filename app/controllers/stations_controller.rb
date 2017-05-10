@@ -1,6 +1,6 @@
 class StationsController < ApplicationController
   before_action :set_station, only: [:show, :edit, :update, :destroy]
-
+  before_action -> {check_permissions('admin', 'operator')}, except: [:show, :index]
   # GET /stations
   # GET /stations.json
   def index

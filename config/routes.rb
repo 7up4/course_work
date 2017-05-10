@@ -3,7 +3,6 @@ Rails.application.routes.draw do
     resources :stations
   end
   resources :stations
-  resources :tariff_zones
   resources :role_users
   resources :roles
   resources :password_resets
@@ -13,8 +12,8 @@ Rails.application.routes.draw do
   get 'login' => 'welcome#new', :as => :login
   get 'logout' => 'welcome#destroy', :as => :logout
   post 'try_login' => 'welcome#create', :as => :try_login
-  get '/fill_nested_station' => 'routes#fill_nested_station'
-  get '/fill_nested_tariff_zone' => 'stations#fill_nested_tariff_zone'
+  post '/fill_nested_station' => 'routes#fill_nested_station'
+  post '/fill_nested_tariff_zone' => 'stations#fill_nested_tariff_zone'
   root 'welcome#index'
 
   resources :users do

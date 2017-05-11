@@ -133,6 +133,9 @@ ru:
         base: ''
         route: Маршрут
         station: Станция
+      route_stations/station:
+        number: Номер станции
+        name: Назвние станции
       # nested_start
       role_user: &role_users
       # nested_finish

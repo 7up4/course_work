@@ -5,6 +5,8 @@
     = link_to(station_name(@route.start_station) + ' - ' + station_name(@route.end_station), @route)
   %li
     = link_to 'Маршруты', routes_path
+  %li
+    Расписание
 %h1= t('app.routes.edit')
 
 = render 'form'

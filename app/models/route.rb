@@ -17,10 +17,6 @@ class Route < ActiveRecord::Base
     route_stations.where(is_missed: true).map{|s| s.station.name}
   end
 
-  def visited_stations
-    route_stations.where(is_missed: false).map{|s| s.station.name}
-  end
-
   protected
 
   # Перед обновлением записи обнуляем станции
@@ -39,7 +35,7 @@ class Route < ActiveRecord::Base
   # В маршруте хотя бы одна станция без пропуска
   def at_least_one_day
     days = [mon, tues, wed, thurs, fri, sat, sun]
-    errors.add(:base, :at_least_one_day) if days.select{|d| d}.empty?
+    errors.add(:base, :at_least_one_day) if !days.include? true
   end
 
   # В маршруте хотя бы одна станция без пропуска

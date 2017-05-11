@@ -40,7 +40,7 @@ class StationsController < ApplicationController
 
     respond_to do |format|
       if @station.save
-        format.html { redirect_to @station, notice: 'Station was successfully created.' }
+        format.html { redirect_to @station, notice: 'Станция создана.' }
         format.json { render :show, status: :created, location: @station }
       else
         format.html { render :new }
@@ -54,7 +54,7 @@ class StationsController < ApplicationController
   def update
     respond_to do |format|
       if @station.update(station_params)
-        format.html { redirect_to @station, notice: 'Station was successfully updated.' }
+        format.html { redirect_to @station, notice: 'Станция обновлена.' }
         format.json { render :show, status: :ok, location: @station }
       else
         format.html { render :edit }
@@ -66,7 +66,7 @@ class StationsController < ApplicationController
   # DELETE /stations/1
   # DELETE /stations/1.json
   def destroy
-    message = @station.destroy ? "Station was successfully destroyed." : "#{@station.errors[:base].first.to_s}"
+    message = @station.destroy ? "Станция удалена." : "#{@station.errors[:base].first.to_s}"
     respond_to do |format|
       format.html { redirect_to stations_url, notice: message }
       format.json { head :no_content }

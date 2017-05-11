@@ -2,12 +2,6 @@ module SideBarHelper
   def side_bar_items(ru)
     result = []
     result << {
-      :name => 'Сслыка без детей',
-      :icon => 'list',
-      :controller => :welcome, 
-      :action => :index
-    }
-    result << {
       :name => 'Администрирование',
       :icon => 'users',
       :children => [
@@ -24,13 +18,13 @@ module SideBarHelper
        :class => 'long'},
     ]} if @current_role_user.try(:is_admin?)
     result << {
-      :name => 'Интерфейс',
-      :icon => 'vcard',
+      :name => 'Расписание поездов',
+      :icon => 'table',
       :children => [
       {:name => 'Станции',
        :controller => :stations, :action => :index,
        :icon => 'road'},
-      {:name => 'Расписание',
+      {:name => 'Маршруты',
        :controller => :routes, :action => :index,
        :icon => 'train',
        :class => 'long'}
@@ -40,7 +34,7 @@ module SideBarHelper
   
   def is_open?(ctr, act)
     case ctr.to_s
-    when 'users', 'roles'
+    when 'users', 'roles', 'routes', 'stations'
       ctr.to_s == controller_name.to_s  
     else
       false

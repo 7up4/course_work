@@ -1,6 +1,6 @@
 class WelcomeController < ApplicationController
   skip_before_action :require_login, except: [:destroy]
-  skip_before_action :check_app_auth
+  skip_before_action :check_app_auth, except: [:index]
   
   def index
   end 

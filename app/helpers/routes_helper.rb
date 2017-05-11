@@ -8,7 +8,9 @@ module RoutesHelper
     if days.values.count(true) == days.size
       "Ежедневно"
     elsif days.values[0,5].count(true) == 5
-      "По будням"
+      "По рабочим"
+    elsif days.values[5,2].count(true) == 2
+      "По выходным"
     else
       days.select{|key, value| key if value}.keys.join(", ")
     end

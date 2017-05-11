@@ -3,17 +3,27 @@
     = link_to(station_name(@route.start_station) + ' - ' + station_name(@route.end_station), @route)
   %li
     = link_to 'Маршруты', routes_path
-%p#notice= notice
-%p
-  %b= Route.human_attribute_name(:start_station_id)+':'
-  = @route.start_station.present? ? @route.start_station.name : nil
-%p
-  %b= Route.human_attribute_name(:end_station_id)+':'
-  = @route.end_station.present? ? @route.end_station.name : nil
-- if @route.skipped_stations.present?
-  %p
-    %b= Route.human_attribute_name(:skipped_stations)+':'
-    = @route.skipped_stations.join(", ")
-%p
-  %b= Route.human_attribute_name(:days)+':'
-  = get_days(@route)
+.page-header
+  %h1= t('activerecord.models.route')
+.row
+  .col-md-6
+    %b.margin-top-mini= Route.human_attribute_name(:start_station_id)
+    %p= @route.start_station.present? ? @route.start_station.name : nil
+  .col-md-6
+    %b.margin-top-mini= Route.human_attribute_name(:end_station_id)
+    %p= @route.end_station.present? ? @route.end_station.name : nil
+.row
+  - if @route.skipped_stations.present?
+    .col-md-6
+      %b.margin-top-mini= Route.human_attribute_name(:skipped_stations)
+      %p= @route.skipped_stations.join(", ")
+  .col-md-6
+    %b.margin-top-mini= Route.human_attribute_name(:days)
+    %p= get_days(@route)
+- if is_powerful?
+  = link_to edit_route_path(@route), class: 'btn btn-info' do
+    = fa_icon :edit
+    = t('buttons.edit')
+  = link_to @route, :method => :delete, :data => { :confirm => t('buttons.confirm.route') }, class: 'btn btn-danger' do
+    = fa_icon :times
+    = t('buttons.destroy')

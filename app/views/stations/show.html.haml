@@ -3,14 +3,26 @@
     = link_to(@station.name, @station)
   %li
     = link_to 'Станции', stations_path
-%p#notice= notice
-
-%p
-  %b= Station.human_attribute_name(:name)+':'
-  = @station.name
-%p
-  %b= Station.human_attribute_name(:number)+':'
-  = @station.number
-%p
-  %b= Station.human_attribute_name(:tariff_zone)+':'
-  = @station.tariff_zone ? @station.tariff_zone.name : nil
+.page-header
+  %h1= t('activerecord.models.station')
+  .row
+    .col-md-6
+      %b= Station.human_attribute_name(:name)
+      %p= @station.name
+    .col-md-6
+      %b= Station.human_attribute_name(:number)
+      %p= @station.number
+.page-header
+  %h2= t('activerecord.models.tariff_zone')
+%dl
+  .row
+    .col-md-6
+      %dt= TariffZone.human_attribute_name(:name)
+      %dd= @station.tariff_zone ? @station.tariff_zone.name : nil
+- if is_powerful?
+  = link_to edit_station_path(@station), class: 'btn btn-info' do
+    = fa_icon :edit
+    = t('buttons.edit')
+  = link_to @station, :method => :delete, :data => { :confirm => t('buttons.confirm.station') }, class: 'btn btn-danger' do
+    = fa_icon :times
+    = t('buttons.destroy')

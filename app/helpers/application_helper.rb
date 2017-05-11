@@ -10,4 +10,8 @@ module ApplicationHelper
   def breadcrumb_tag(&block)
     render 'application/breadcrumb', block: capture(&block)
   end
+  
+  def is_powerful?
+    @current_role_user.try(:is_admin?) || @current_role_user.try(:is_operator?)
+  end
 end

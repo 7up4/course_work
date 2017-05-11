@@ -3,11 +3,12 @@
     Маршруты
 .page-header
   %h1= t('app.routes.index')
-.row
-  %caption
-    = link_to new_route_path, class: 'btn btn-success' do
-      = fa_icon :plus
-      = t('buttons.new.route')
+- if is_powerful?
+  .row
+    %caption
+      = link_to new_route_path, class: 'btn btn-success' do
+        = fa_icon :plus
+        = t('buttons.new.route')
 .row
   .flex-container
     - @routes.each do |route|
@@ -27,7 +28,8 @@
         .buttons.bottom-right-corner
           = link_to route, class: 'btn btn-warning' do
             = fa_icon :eye
-          = link_to edit_route_path(route), class: 'btn btn-info' do
-            = fa_icon :edit
-          = link_to route, :method => :delete, :data => { :confirm => t('buttons.confirm.route') }, class: 'btn btn-danger' do
-            = fa_icon :times
+          - if is_powerful?
+            = link_to edit_route_path(route), class: 'btn btn-info' do
+              = fa_icon :edit
+            = link_to route, :method => :delete, :data => { :confirm => t('buttons.confirm.route') }, class: 'btn btn-danger' do
+              = fa_icon :times

@@ -9,7 +9,7 @@ class Station < ActiveRecord::Base
 
   accepts_nested_attributes_for :tariff_zone, reject_if: :all_blank
 
-  validates :name, :number, presence: true
+  validates :name, :number, :tariff_zone, presence: true
   validates :name, length: {maximum: 64}
   validates :number, numericality: { greater_than: 0 }, uniqueness: true
   

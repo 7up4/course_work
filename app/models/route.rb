@@ -38,7 +38,7 @@ class Route < ActiveRecord::Base
     errors.add(:base, :at_least_one_day) if !days.include? true
   end
 
-  # В маршруте хотя бы одна станция без пропуска
+  # В маршруте хотя бы две станции без пропуска
   def at_least_two_stations
     errors.add(:base, :at_least_two_stations) if route_stations.select{|k| !k.is_missed && !k.marked_for_destruction?}.size < 2
   end

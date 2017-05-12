@@ -18,7 +18,6 @@ class Route < ActiveRecord::Base
   end
 
   def self.search(params)
-    p params
     result = Route.eager_load(route_stations: :station, stations: :tariff_zone)
     params[:route].each do |attr,val|
       next if val.to_s.blank?

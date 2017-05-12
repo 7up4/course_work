@@ -1,4 +1,21 @@
 ru:
+  routes:
+    search:
+      days: Дни следования
+      mon: Понедельник
+      tues: Вторник
+      wed: Среда
+      thurs: Четверг
+      fri: Пятница
+      sat: Суббота
+      sun: Воскресенье
+      start_station_id: Станция отправления
+      end_station_id: Станция назначения
+      arrival_time: Время прибытия
+      is_missed: Станция пропущена
+      station_name: Название станции
+      number: Номер станции
+      tariff_zone_name: Название тарифной зоны
   errors:
     messages: 
       uniq_stations: Все станции должны быть уникальны
@@ -59,6 +76,7 @@ ru:
     edit: Редактировать
     destroy: Удалить
     show: Показать
+    search: Поиск
     confirm:
       user: Действительно удалить пользователя?
       role: Действительно удалить роль?
@@ -70,6 +88,9 @@ ru:
       route: Новый маршрут
       station: Новая станция
   headers:
+    routes:
+      advanced_search: Расширенный поиск
+      search_results: Результаты поиска
     users:
       edit: Редактирование пользователя
       new: Новый пользователь

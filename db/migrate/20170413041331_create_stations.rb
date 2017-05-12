@@ -7,6 +7,7 @@ class CreateStations < ActiveRecord::Migration
       t.references :tariff_zone, index: true, foreign_key: true, null: false
 
       t.index :number, unique: true
+      t.index :name, unique: true
       t.timestamps null: false
     end
     reversible do |dir|

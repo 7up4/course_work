@@ -23,4 +23,7 @@ $(document).on 'turbolinks:load', ->
     set_checkbox()
   set_time_picker()
   existing_station_ajax()
-  set_checkbox()
+
+# В bootstrap-switch появляются баги при работе с turbolinks  
+$(document).ready set_checkbox
+$(document).on 'page:load', set_checkbox

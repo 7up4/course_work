@@ -1,0 +1,67 @@
+%h1= t('headers.routes.advanced_search')
+= form_tag search_routes_path, method: 'post', remote: true do
+  .row
+    .col-md-12
+      %table.table.table-hover.table-bordered.table-condensed
+        %thead
+          %tr
+            %th{colspan: 2}= label_tag t('.days')
+        %tbody
+          %tr
+            %td.center= label_tag t('.mon')
+            %td.center= check_box_tag 'search[route][mon]', nil, nil
+          %tr
+            %td.center= label_tag t('.tues')
+            %td.center= check_box_tag 'search[route][tues]', nil, nil
+          %tr
+            %td.center= label_tag t('.wed')
+            %td.center= check_box_tag 'search[route][wed]', nil, nil
+          %tr
+            %td.center= label_tag t('.thurs')
+            %td.center= check_box_tag 'search[route][thurs]', nil, nil
+          %tr
+            %td.center= label_tag t('.fri')
+            %td.center= check_box_tag 'search[route][fri]', nil, nil
+          %tr
+            %td.center= label_tag t('.sat')
+            %td.center= check_box_tag 'search[route][sat]', nil, nil
+          %tr
+            %td.center= label_tag t('.sun')
+            %td.center= check_box_tag 'search[route][sun]', nil, nil
+  .row
+    .col-md-6
+      .form-group
+        = label_tag t('.start_station_id')
+        = text_field_tag 'search[route][start_station]', nil, class: 'form-control'
+    .col-md-6
+      .form-group
+        = label_tag t('.end_station_id')
+        = text_field_tag 'search[route][end_station]', nil, class: 'form-control'
+  .row
+    .col-md-4
+      .form-group
+        = label_tag t('.station_name')
+        = text_field_tag 'search[station][name]', nil, class: 'form-control'
+    .col-md-4
+      .form-group
+        = label_tag t('.number')
+        = number_field_tag 'search[station][number]', nil, class: 'form-control'
+    .col-md-4
+      .form-group
+        = label_tag t('.tariff_zone_name')
+        = text_field_tag 'search[tariff_zone][name]', nil, class: 'form-control'
+  .row
+    .col-md-9
+      .form-group
+        = label_tag t('.arrival_time')
+        .input-group.date.timepicker
+          = text_field_tag 'search[route_station][arrival_time]', nil, class: 'form-control'
+          %span.input-group-addon
+            %span.glyphicon.glyphicon-time
+    .col-md-3
+      .form-group.input-centered
+        = label_tag :is_missed, t('.is_missed'), {class: 'checkbox-label'}
+        = check_box_tag 'search[route_station][is_missed]', nil, false, {class: 'switch', data: {size: 'small', 'on-text': t('buttons.switch_yes'), 'off-text':  t('buttons.switch_no')}}
+  .actions
+    = submit_tag t('buttons.search'), class: 'btn btn-primary'
+#search_results

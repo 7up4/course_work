@@ -88,6 +88,7 @@ ActiveRecord::Schema.define(version: 20170501085108) do
     t.datetime "updated_at",                null: false
   end
 
+  add_index "stations", ["name"], name: "index_stations_on_name", unique: true, using: :btree
   add_index "stations", ["number"], name: "index_stations_on_number", unique: true, using: :btree
   add_index "stations", ["tariff_zone_id"], name: "index_stations_on_tariff_zone_id", using: :btree
 

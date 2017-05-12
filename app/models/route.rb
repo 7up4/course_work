@@ -17,6 +17,32 @@ class Route < ActiveRecord::Base
     route_stations.where(is_missed: true).map{|s| s.station.name}
   end
 
+  def self.search(params)
+    p params
+    result = Route.eager_load(route_stations: :station, stations: :tariff_zone)
+    params[:route].each do |attr,val|
+      next if val.to_s.blank?
+      if attr == 'start_station' || attr == 'end_station'
+        result = result.where(attr=>Station.where(name: val))
+        next
+      end
+      result = result.where(attr=>val)
+    end
+    params[:route_station].each do |attr,val|
+      next if val.to_s.blank?
+      result = result.where(route_stations: {attr=>val})
+    end
+    params[:tariff_zone].each do |attr,val|
+      next if val.to_s.blank?
+      result = result.where(tariff_zones: {attr=>val})
+    end
+    params[:station].each do |attr,val|
+      next if val.to_s.blank?
+      result = result.where(stations: {attr=>val})
+    end
+    return result
+  end
+  
   protected
 
   # Перед обновлением записи обнуляем станции

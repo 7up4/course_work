@@ -1,6 +1,10 @@
 Rails.application.routes.draw do
   resources :routes do
     resources :stations
+    collection do
+      get :search
+      post :search
+    end
   end
   resources :stations
   resources :role_users

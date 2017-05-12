@@ -11,6 +11,9 @@
       = link_to new_route_path, class: 'btn btn-success' do
         = fa_icon :plus
         = t('buttons.new.route')
+      = link_to search_routes_path, class: 'btn btn-default' do
+        = fa_icon :search
+        = t('buttons.search')
 .row
   .flex-container
     - @routes.each do |route|

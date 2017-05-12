@@ -1,0 +1,5 @@
+<% if @routes.present? %>
+  $("#search_results").html("<%= escape_javascript render 'search_results' %> ")
+<% else %>
+  $("#search_results").html("<p><b> Ничего не найдено </b></p>")
+<% end %>

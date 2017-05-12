@@ -31,11 +31,6 @@ class ApplicationController < ActionController::Base
     end
   end
 
-  ## Проверка прав доступа выбранной роли для данного метода
-  def check_ctr_auth()
-    return @current_role_user.try(:is_admin?)
-  end
-
   def not_authenticated
     redirect_to login_path, danger: "Сначала войдите в систему!"
   end

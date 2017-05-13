@@ -12,6 +12,7 @@ r1, r2 = Role.create_main_roles
 ru1 = RoleUser.create(role: r1, user: u1)
 ru2 = RoleUser.create(role: r2, user: u2)
 
+RouteStation.delete_all
 Route.delete_all
 Station.delete_all
 TariffZone.delete_all
@@ -19,7 +20,7 @@ TariffZone.delete_all
 10.times do |i|
   s = Station.create(
     name: "Station №"+(i+1).to_s,
-    tariff_zone: TariffZone.all[(0...10).to_a.shuffle[0]],
+    tariff_zone: TariffZone.all[(1..5).to_a.shuffle[0]],
     number: i+1
   )
 end

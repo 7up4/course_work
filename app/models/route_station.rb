@@ -1,6 +1,9 @@
 class RouteStation < ActiveRecord::Base
+  attr_accessor :remove_station
+  
   after_initialize :set_defaults
-
+  after_destroy :destroy_station
+  
   belongs_to :station
   belongs_to :route
 
@@ -12,6 +15,12 @@ class RouteStation < ActiveRecord::Base
 
   protected
 
+  def destroy_station
+    if remove_station
+      self.station.destroy
+    end
+  end
+  
   def set_defaults
     self.is_missed ||= false
   end

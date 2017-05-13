@@ -3,6 +3,11 @@
 # You can use CoffeeScript in this file: http://coffeescript.org/
 set_time_picker= -> $('.timepicker').datetimepicker({locale: 'ru', format: 'HH:mm', defaultDate: ""})
 set_checkbox= -> $('.switch:checkbox').bootstrapSwitch();
+remove_station= ->
+  $(".remove_station").click (e) ->
+    e.preventDefault()
+    $(this).closest('.nested-fields').find('.hidden_remove_station').val("1")
+    $(this).closest('.nested-fields').find('.remove_fields.existing').click()
 existing_station_ajax= ->
   $('#route_stations #select_existing_station').on 'change', (evt) ->
     $.ajax
@@ -16,14 +21,17 @@ existing_station_ajax= ->
         console.log("AJAX Error: #{textStatus}")
       success: (data, textStatus, jqXHR) ->
         console.log("Dynamic station select OK!")
-$(document).on 'turbolinks:load', ->
+        
+ready= ->
   $('#route_stations').on 'cocoon:after-insert', ->
     set_time_picker()
     existing_station_ajax()
     set_checkbox()
+    remove_station()
   set_time_picker()
   existing_station_ajax()
+  set_checkbox()
+  remove_station()
 
-# В bootstrap-switch появляются баги при работе с turbolinks  
-$(document).ready set_checkbox
-$(document).on 'page:load', set_checkbox
+$(document).ready ready
+$(document).on 'page:load', ready

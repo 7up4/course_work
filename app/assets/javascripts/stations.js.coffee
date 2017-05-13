@@ -49,8 +49,11 @@ existing_tariff_zone_ajax= ->
         console.log("AJAX Error: #{textStatus}")
       success: (data, textStatus, jqXHR) ->
         console.log("Dynamic tariff_zone select OK!")
-        
-$(document).on 'turbolinks:load', ->
+
+ready= ->        
   $('#route_stations').on 'cocoon:after-insert', ->
     existing_tariff_zone_ajax()
   existing_tariff_zone_ajax()
+  
+$(document).ready ready
+$(document).on 'page:load', ready

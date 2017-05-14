@@ -22,12 +22,8 @@ existing_station_ajax= ->
       dataType: 'script',
       data: {
         station_to_fill: [$(this).val(), $(this).attr('name')]
-      },
-      error: (jqXHR, textStatus, errorThrown) ->
-        console.log("AJAX Error: #{textStatus}")
-      success: (data, textStatus, jqXHR) ->
-        console.log("Dynamic station select OK!")
-        
+      }
+              
 ready= ->
   $('#route_stations').on 'cocoon:after-insert', ->
     set_time_picker()

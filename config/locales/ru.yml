@@ -157,6 +157,7 @@ ru:
       route_stations/station:
         number: Номер станции
         name: Назвние станции
+        tariff_zone: Поле тарифной зоны
       # nested_start
       role_user: &role_users
       # nested_finish

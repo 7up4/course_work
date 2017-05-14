@@ -16,8 +16,9 @@ class RouteStation < ActiveRecord::Base
   protected
 
   def destroy_station
-    if remove_station
-      self.station.destroy
+    if remove_station.present?
+      relationship = self.station.route_stations.select{|rs| rs.id!=self.id}
+      self.station.destroy if relationship.empty?
     end
   end
   

@@ -6,8 +6,14 @@ set_checkbox= -> $('.switch:checkbox').bootstrapSwitch();
 remove_station= ->
   $(".remove_station").click (e) ->
     e.preventDefault()
-    $(this).closest('.nested-fields').find('.hidden_remove_station').val("1")
-    $(this).closest('.nested-fields').find('.remove_fields.existing').click()
+    my_nested_fields = $(this).closest('.nested-fields')
+    removed = my_nested_fields.find('#select_existing_station').val();
+    $('.nested-fields').not(my_nested_fields).find("#select_existing_station option[value='"+removed+"']").remove();
+    my_nested_fields.find('.hidden_remove_station').val("1")
+    my_nested_fields.find('.remove_fields.existing').click()
+    $('.nested-fields').not(my_nested_fields).find('.hidden_station_id').each (index, elem) ->
+      if ($(elem).val() == removed)
+        $(elem).val('')
 existing_station_ajax= ->
   $('#route_stations #select_existing_station').on 'change', (evt) ->
     $.ajax

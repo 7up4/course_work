@@ -1,6 +1,7 @@
 = form_for @station do |f|
   = error_messages_for @station
   .row
+    = f.hidden_field :remove_tariff_zone, {class: "hidden_remove_tariff_zone"}
     .col-md-5
       .form-group
         = f.label :name

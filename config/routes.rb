@@ -6,11 +6,12 @@ Rails.application.routes.draw do
       post :search
     end
   end
+  resources :tariff_zones, only: %i(destroy)
   resources :stations
   resources :role_users
   resources :roles
   resources :password_resets
-
+  
   get 'welcome/index', as: :welcome
   get 'welcome/insufficient_privileges', as: :ip
   get 'login' => 'welcome#new', :as => :login

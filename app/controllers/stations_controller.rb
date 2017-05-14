@@ -82,8 +82,8 @@ class StationsController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def station_params
       params.require(:station).permit(
-        :name, :tariff_zone_id, :number,
-        tariff_zone_attributes: [:id, :name, :_destroy]
+        :name, :tariff_zone_id, :number, :remove_tariff_zone,
+        tariff_zone_attributes: [:id, :name]
       )
     end
 end

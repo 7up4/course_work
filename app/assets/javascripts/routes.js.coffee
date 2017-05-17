@@ -4,10 +4,7 @@
 set_time_picker= -> $('.timepicker').datetimepicker({locale: 'ru', format: 'HH:mm', defaultDate: ""})
 set_checkbox= -> $('.switch:checkbox').bootstrapSwitch();
 remove_station= ->
-  # # удалять station_id
-  # $('.hidden_remove_station').each (index, elem) ->
-  #   if $(elem).val()
-  #     $(".select_existing_station option[value='"+($(elem).val())+"']").remove()
+  # $(".nested-fields:hidden .station_destroy").val(1) -- нужно доделать
   $(".remove_station").click (e) ->
     e.preventDefault()
     my_nested_fields = $(this).closest('.nested-fields')

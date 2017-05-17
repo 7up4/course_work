@@ -3,8 +3,6 @@ module ActiveRecord
     def validate_uniqueness_of_in_memory(collection, attrs, message)
       hashes = collection.inject({}) do |hash, record|
         key = attrs.map {|a| record.send(a).to_s }.join
-        puts "J"
-        p record.marked_for_destruction?
         if key.blank? || record.marked_for_destruction?
           key = record.object_id
         end

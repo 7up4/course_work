@@ -11,7 +11,7 @@ class RouteStation < ActiveRecord::Base
   validates :is_missed, inclusion: {in: [true, false]}
   validate :not_missed?
 
-  accepts_nested_attributes_for :station, reject_if: :all_blank
+  accepts_nested_attributes_for :station, allow_destroy: true, reject_if: :all_blank
 
   protected
 

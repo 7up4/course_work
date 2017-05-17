@@ -1,7 +1,7 @@
 class Route < ActiveRecord::Base
   after_commit :set_start_end_stations
   before_save :nil_stations
-  
+  before_validation :has_no_relations
   belongs_to :start_station, class_name: "Station"
   belongs_to :end_station, class_name: "Station"
   has_many :route_stations, inverse_of: :route, dependent: :destroy
@@ -74,6 +74,12 @@ class Route < ActiveRecord::Base
   def set_start_end_stations
     rs = route_stations.select{|k| !k.is_missed && !k.marked_for_destruction?}.sort_by {|x| x[:arrival_time]}
     update_columns(start_station_id: rs.first.station_id, end_station_id: rs.last.station_id) if !rs.blank?
+  end
+  
+  def has_no_relations
+    self.route_stations.each do |rs|
+      rs.station.reload if rs.station.marked_for_destruction? && rs.station.route_stations.select{|v| v.id!=rs.id}.present?
+    end
   end
   
   def validate_unique_station

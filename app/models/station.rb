@@ -20,6 +20,7 @@ class Station < ActiveRecord::Base
   validates :number, numericality: { greater_than: 0}
   validates_uniqueness_of :name, unless: :skip_station_name
   validates_uniqueness_of :number, unless: :skip_station_number
+  
   protected
   
   def avoid_uniqueness_fail

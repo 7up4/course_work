@@ -1,9 +1,11 @@
 class Station < ActiveRecord::Base
   attr_accessor :remove_tariff_zone
+  attr_accessor :skip_station_name
+  attr_accessor :skip_station_number
   
   belongs_to :tariff_zone
   before_destroy :any_route?
-  after_save :destroy_tariff_zone
+  after_update :destroy_tariff_zone
   before_validation :avoid_uniqueness_fail
   
   has_many :route_starts, class_name: "Station", foreign_key: "start_station_id"
@@ -14,17 +16,17 @@ class Station < ActiveRecord::Base
   accepts_nested_attributes_for :tariff_zone, allow_destroy: true, reject_if: :all_blank
 
   validates :name, :number, :tariff_zone, presence: true
-  validates :name, length: {maximum: 64}, uniqueness: true
-  validates :number, numericality: { greater_than: 0 }, uniqueness: true
-  
+  validates :name, length: {maximum: 64}
+  validates :number, numericality: { greater_than: 0}
+  validates_uniqueness_of :name, unless: :skip_station_name
+  validates_uniqueness_of :number, unless: :skip_station_number
   protected
   
   def avoid_uniqueness_fail
     if remove_tariff_zone.present?
       tz_to_remove = TariffZone.find(remove_tariff_zone)
       if tz_to_remove.present?
-        tmp_name = random_string
-        tz_to_remove.update_attributes(name: tmp_name)
+        tz_to_remove.update_attributes(name: random_string)
       end
     end
   end

@@ -4,18 +4,23 @@
 set_time_picker= -> $('.timepicker').datetimepicker({locale: 'ru', format: 'HH:mm', defaultDate: ""})
 set_checkbox= -> $('.switch:checkbox').bootstrapSwitch();
 remove_station= ->
+  # # удалять station_id
+  # $('.hidden_remove_station').each (index, elem) ->
+  #   if $(elem).val()
+  #     $(".select_existing_station option[value='"+($(elem).val())+"']").remove()
   $(".remove_station").click (e) ->
     e.preventDefault()
     my_nested_fields = $(this).closest('.nested-fields')
-    removed = my_nested_fields.find('#select_existing_station').val();
-    $('.nested-fields').not(my_nested_fields).find("#select_existing_station option[value='"+removed+"']").remove();
-    my_nested_fields.find('.hidden_remove_station').val("1")
+    removed = my_nested_fields.find('.select_existing_station').val();
+    $('.nested-fields').not(my_nested_fields).find(".select_existing_station option[value='"+removed+"']").remove();
+    my_nested_fields.find('.station_destroy').val(1)
+    my_nested_fields.find('.hidden_remove_station').val(removed)
     my_nested_fields.find('.remove_fields.existing').click()
     $('.nested-fields').not(my_nested_fields).find('.hidden_station_id').each (index, elem) ->
       if ($(elem).val() == removed)
         $(elem).val('')
 existing_station_ajax= ->
-  $('#route_stations #select_existing_station').on 'change', (evt) ->
+  $('#route_stations .select_existing_station').on 'change', (evt) ->
     $.ajax
       url: '/fill_nested_station',
       type: 'POST',

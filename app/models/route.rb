@@ -8,6 +8,8 @@ class Route < ActiveRecord::Base
   has_many :stations, through: :route_stations
 
   accepts_nested_attributes_for :route_stations, allow_destroy: true, reject_if: :all_blank
+  validate :validate_unique_station_num
+  validate :validate_unique_station
   validates :start_station_id, :end_station_id, presence: true
   validate :at_least_two_stations
   validate :at_least_one_day
@@ -16,7 +18,7 @@ class Route < ActiveRecord::Base
   def skipped_stations
     route_stations.where(is_missed: true).map{|s| s.station.name}
   end
-
+  
   def self.search(params)
     result = Route.eager_load(route_stations: :station, stations: :tariff_zone)
     params[:route].each do |attr,val|
@@ -43,7 +45,7 @@ class Route < ActiveRecord::Base
   end
   
   protected
-
+  
   # Перед обновлением записи обнуляем станции
   def nil_stations
     self.start_station_id = nil
@@ -53,7 +55,7 @@ class Route < ActiveRecord::Base
   # В маршруте не должно быть одинаковых станций
   def uniq_stations
     rs = route_stations.select{|k| !k.marked_for_destruction?}
-    stations = rs.map{|x| x.station_id}.uniq
+    stations = rs.map{|x| x.station}.uniq
     errors.add(:base, :uniq_stations) if stations.length < rs.length
   end
   
@@ -72,5 +74,15 @@ class Route < ActiveRecord::Base
   def set_start_end_stations
     rs = route_stations.select{|k| !k.is_missed && !k.marked_for_destruction?}.sort_by {|x| x[:arrival_time]}
     update_columns(start_station_id: rs.first.station_id, end_station_id: rs.last.station_id) if !rs.blank?
+  end
+  
+  def validate_unique_station
+    self.route_stations.each{|rs| rs.station.skip_station_name=true}
+    validate_uniqueness_of_in_memory(self.route_stations.map{|s| s.station}, [:name], 'Duplicate station name.')
+  end
+  
+  def validate_unique_station_num
+    self.route_stations.each{|rs| rs.station.skip_station_number=true}
+    validate_uniqueness_of_in_memory(self.route_stations.map{|s| s.station}, [:number], 'Duplicate station number.')
   end
 end

@@ -5,7 +5,7 @@
     .col-md-4
       .form-group
         = f.label :existing_station
-        = f.collection_select :station_id, Station.all, :id, :name, {include_blank: true}, {class: 'form-control', id: 'select_existing_station'}
+        = f.collection_select :station_id, Station.all, :id, :name, {include_blank: true}, {class: 'form-control select_existing_station'}
     .col-md-4
       .form-group
         = f.label :arrival_time
@@ -22,6 +22,7 @@
     = f.fields_for :station, f.object.station || f.object.build_station do |s|
       .nested_station
         = s.hidden_field :id, {class: "hidden_station_id"}
+        = s.hidden_field :_destroy, {class: "station_destroy"}
         .col-md-5
           .form-group
             = s.label :name

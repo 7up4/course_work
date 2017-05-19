@@ -21,13 +21,15 @@ module SideBarHelper
       :name => 'Расписание поездов',
       :icon => 'table',
       :children => [
-      {:name => 'Станции',
-       :controller => :stations, :action => :index,
-       :icon => 'road'},
+      {:name => 'Поиск маршрутов',
+       :controller => :routes, :action => :search,
+       :icon => 'search'},
       {:name => 'Маршруты',
        :controller => :routes, :action => :index,
-       :icon => 'train',
-       :class => 'long'}
+       :icon => 'train'},
+      {:name => 'Станции',
+       :controller => :stations, :action => :index,
+       :icon => 'road'}
     ]} 
     result
   end

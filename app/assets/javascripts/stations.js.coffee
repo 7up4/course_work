@@ -4,13 +4,13 @@
 remove_tariff_zone= ->
   onreload = $('.hidden_remove_tariff_zone').val()
   if onreload
-    $("#select_existing_tariff_zone option[value='"+onreload+"']").remove();
+    $("#select_existing_tariff_zone option[value='"+onreload+"']").remove()
   $('.remove_tariff_zone').click ->
     to_remove = $('.hidden_tariff_zone_id').val()
-    $("#select_existing_tariff_zone option[value='"+to_remove+"']").remove();
-    $('.hidden_tariff_zone_id').val('');
-    $('.tariff_zone_name_field').val('');
-    $('.hidden_remove_tariff_zone').val(to_remove);
+    $("#select_existing_tariff_zone option[value='"+to_remove+"']").remove()
+    $('.hidden_tariff_zone_id').val('')
+    $('.tariff_zone_name_field').val('')
+    $('.hidden_remove_tariff_zone').val(to_remove)
     $(this).remove()
 
 existing_tariff_zone_ajax= ->

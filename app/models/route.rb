@@ -1,15 +1,18 @@
 class Route < ActiveRecord::Base
   after_commit :set_start_end_stations
   before_save :nil_stations
-  before_validation :has_no_relations
+
   belongs_to :start_station, class_name: "Station"
   belongs_to :end_station, class_name: "Station"
   has_many :route_stations, inverse_of: :route, dependent: :destroy
   has_many :stations, through: :route_stations
 
-  accepts_nested_attributes_for :route_stations, allow_destroy: true, reject_if: :all_blank
-  validate :validate_unique_station_num
-  validate :validate_unique_station
+  accepts_nested_attributes_for :route_stations, allow_destroy: true
+  
+  # Валидация названия и номера станции в памяти
+  validate :validate_unique_station_name
+  validate :validate_unique_station_number
+  
   validates :start_station_id, :end_station_id, presence: true
   validate :at_least_two_stations
   validate :at_least_one_day
@@ -75,20 +78,28 @@ class Route < ActiveRecord::Base
     rs = route_stations.select{|k| !k.is_missed && !k.marked_for_destruction?}.sort_by {|x| x[:arrival_time]}
     update_columns(start_station_id: rs.first.station_id, end_station_id: rs.last.station_id) if !rs.blank?
   end
+    
+  def validate_unique_station_name
+    self.route_stations.each{|rs| return false if rs.station.name.blank? }
+    self.route_stations.each{|rs| rs.station.skip_station_name = true}
+    validate_uniqueness_of_in_memory(self.route_stations.map{|s| s.station}, [:name], :non_unique_station_name)
+  end
   
-  def has_no_relations
-    self.route_stations.each do |rs|
-      rs.station.reload if rs.station.marked_for_destruction? && rs.station.route_stations.select{|v| v.id!=rs.id}.present?
+  def validate_unique_station_number
+    self.route_stations.each{|rs| return false if rs.station.number.blank? }
+    self.route_stations.each{|rs| rs.station.skip_station_number = true}
+    validate_uniqueness_of_in_memory(self.route_stations.map{|s| s.station}, [:number], :non_unique_station_number)
+  end
+  
+  # Проверка на уникальность в памяти
+  def validate_uniqueness_of_in_memory(collection, attrs, message)
+    collection = collection.reverse.uniq{|x| x.id}
+    hashes = collection.inject({}) do |hash, record|
+      key = attrs.map {|a| record.send(a).to_s }.join
+      key = record.object_id if key.blank? || (record.marked_for_destruction? && record.route_stations.select{|rs| !rs.marked_for_destruction?}.length==1)
+      hash[key] = record unless hash[key]
+      hash
     end
-  end
-  
-  def validate_unique_station
-    self.route_stations.each{|rs| rs.station.skip_station_name=true}
-    validate_uniqueness_of_in_memory(self.route_stations.map{|s| s.station}, [:name], 'Duplicate station name.')
-  end
-  
-  def validate_unique_station_num
-    self.route_stations.each{|rs| rs.station.skip_station_number=true}
-    validate_uniqueness_of_in_memory(self.route_stations.map{|s| s.station}, [:number], 'Duplicate station number.')
+    self.errors.add(:base, message) if collection.length > hashes.length
   end
 end

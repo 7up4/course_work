@@ -13,7 +13,7 @@ class Station < ActiveRecord::Base
   has_many :route_stations, dependent: :destroy
   has_many :routes, through: :route_stations
 
-  accepts_nested_attributes_for :tariff_zone, allow_destroy: true, reject_if: :all_blank
+  accepts_nested_attributes_for :tariff_zone, allow_destroy: true
 
   validates :name, :number, :tariff_zone, presence: true
   validates :name, length: {maximum: 64}

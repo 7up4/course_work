@@ -17,7 +17,7 @@
     .col-md-4
       .form-group.input-centered
         = f.label :is_missed, {class: 'checkbox-label'}
-        = f.check_box :is_missed, {class: 'switch', data: {size: 'small', 'on-text': t('buttons.switch_yes'), 'off-text':  t('buttons.switch_no')}}, '1', '0'
+        = f.check_box :is_missed, {class: 'switch', data: {size: 'small', 'on-text': t('buttons.switch_yes'), 'off-text':  t('buttons.switch_no')}}
         = f.hidden_field :remove_station, {class: "hidden_remove_station"}
     = f.fields_for :station, f.object.station || f.object.build_station do |s|
       .nested_station
@@ -34,7 +34,7 @@
         .col-md-4
           .form-group#tariff_zone_select
             = s.label :tariff_zone
-            = s.collection_select :tariff_zone_id, TariffZone.all, :id, :name, {include_blank: true}, {class: "form-control tariff_zone_id_field", id: 'select_existing_tariff_zone'}
+            = s.collection_select :tariff_zone_id, TariffZone.all, :id, :name, {include_blank: true}, {class: "form-control tariff_zone_id_field select_existing_tariff_zone"}
   .form-actions    
     = link_to_remove_association f, class: 'btn btn-danger' do
       = fa_icon :times

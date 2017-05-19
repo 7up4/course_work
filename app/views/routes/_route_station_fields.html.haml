@@ -39,7 +39,7 @@
     = link_to_remove_association f, class: 'btn btn-danger' do
       = fa_icon :times
       = t('cocoon.route_stations.drop')
-    - if !f.object.station.new_record?
+    - if !f.object.new_record?
       = link_to '#', class: 'btn btn-danger remove_station' do
         = fa_icon :times
         = t('cocoon.route_stations.remove')

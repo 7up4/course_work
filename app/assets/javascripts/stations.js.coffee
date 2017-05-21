@@ -14,7 +14,7 @@ remove_tariff_zone= ->
     $(this).remove()
 
 existing_tariff_zone_ajax= ->
-  $('#tariff_zone_select #select_existing_tariff_zone').on 'change', (evt) ->
+  $('#tariff_zone_select #select_existing_tariff_zone').on 'change', ->
     $.ajax
       url: '/fill_nested_tariff_zone',
       type: 'POST',

@@ -18,7 +18,6 @@
       .form-group.input-centered
         = f.label :is_missed, {class: 'checkbox-label'}
         = f.check_box :is_missed, {class: 'switch', data: {size: 'small', 'on-text': t('buttons.switch_yes'), 'off-text':  t('buttons.switch_no')}}, 1, 0
-        = f.hidden_field :remove_station, {class: "hidden_remove_station"}
     = f.fields_for :station, f.object.station || f.object.build_station do |s|
       .nested_station
         = s.hidden_field :id, {class: "hidden_station_id"}

@@ -7,13 +7,12 @@ class Route < ActiveRecord::Base
   has_many :route_stations, inverse_of: :route, dependent: :destroy
   has_many :stations, through: :route_stations
 
-  accepts_nested_attributes_for :route_stations, allow_destroy: true
+  accepts_nested_attributes_for :route_stations, allow_destroy: true, reject_if: :reject_route_stations
   
   # Валидация названия и номера станции в памяти
+  validates :start_station_id, :end_station_id, presence: true
   validate :validate_unique_station_name
   validate :validate_unique_station_number
-  
-  validates :start_station_id, :end_station_id, presence: true
   validate :at_least_two_stations
   validate :at_least_one_day
   validate :uniq_stations
@@ -49,6 +48,10 @@ class Route < ActiveRecord::Base
   
   protected
   
+  def reject_route_stations(attrs)
+    attrs["station_attributes"].except("_destroy").values.all?(&:blank?)
+  end
+  
   # Перед обновлением записи обнуляем станции
   def nil_stations
     self.start_station_id = nil
@@ -78,13 +81,15 @@ class Route < ActiveRecord::Base
     rs = route_stations.select{|k| !k.is_missed && !k.marked_for_destruction?}.sort_by {|x| x[:arrival_time]}
     update_columns(start_station_id: rs.first.station_id, end_station_id: rs.last.station_id) if !rs.blank?
   end
-    
+  
+  # Валидация уникальности названия станции в памяти
   def validate_unique_station_name
     self.route_stations.each{|rs| return false if rs.station.name.blank? }
     self.route_stations.each{|rs| rs.station.skip_station_name = true}
     validate_uniqueness_of_in_memory(self.route_stations.map{|s| s.station}, [:name], :non_unique_station_name)
   end
   
+  # Валидация уникальности номера станции в памяти
   def validate_unique_station_number
     self.route_stations.each{|rs| return false if rs.station.number.blank? }
     self.route_stations.each{|rs| rs.station.skip_station_number = true}

@@ -6,14 +6,13 @@ set_checkbox= -> $('.switch:checkbox').bootstrapSwitch();
 remove_station= ->
   $(".remove_station").click (e) ->
     e.preventDefault()
-    my_nested_fields = $(this).closest('.nested-fields')
-    removed = my_nested_fields.find('.select_existing_station').val()
-    $('.nested-fields').not(my_nested_fields).find(".select_existing_station option[value='"+removed+"']").remove();
-    my_nested_fields.find('.station_destroy').val(1)
-    my_nested_fields.find('.hidden_remove_station').val(removed)
-    my_nested_fields.find('.remove_fields.existing').click()
-    $('.nested-fields').not(my_nested_fields).find('.hidden_station_id').each (index, elem) ->
-      if ($(elem).val() == removed)
+    my_nested_field = $(this).closest('.nested-fields')
+    to_remove = my_nested_field.find('.select_existing_station').val()
+    $('.nested-fields').not(my_nested_field).find(".select_existing_station option[value="+to_remove+"]").remove();
+    my_nested_field.find('.station_destroy').val(1)
+    my_nested_field.find('.remove_fields.existing').click()
+    $('.nested-fields').not(my_nested_field).find('.hidden_station_id').each (index, elem) ->
+      if ($(elem).val() == to_remove)
         $(elem).val('')
         
 existing_station_ajax= ->
@@ -27,7 +26,7 @@ existing_station_ajax= ->
       }
       
 onreload= ->
-  hrs = $('.hidden_remove_station')
+  hrs = $('.nested-fields:hidden .hidden_station_id')
   $(hrs).each (k,e) ->
     if $(e).val()
       select_fields = $(".select_existing_station:visible")

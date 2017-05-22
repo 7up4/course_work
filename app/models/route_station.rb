@@ -1,6 +1,4 @@
 class RouteStation < ActiveRecord::Base
-  attr_accessor :remove_station
-  
   after_initialize :set_defaults
   after_destroy :destroy_station
   
@@ -11,14 +9,14 @@ class RouteStation < ActiveRecord::Base
   validates :is_missed, inclusion: {in: [true, false]}
   validate :not_missed?
 
-  accepts_nested_attributes_for :station, allow_destroy: true
-
+  accepts_nested_attributes_for :station, allow_destroy: true, reject_if: :all_blank
+  
   protected
-
+  
   def destroy_station
-    if remove_station.present?
+    if self.station.marked_for_destruction?
       relationship = self.station.route_stations.select{|rs| rs.id!=self.id}
-      self.station.destroy if relationship.empty?
+      self.station.delete if relationship.empty?
     end
   end
   

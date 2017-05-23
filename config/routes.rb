@@ -25,6 +25,10 @@ Rails.application.routes.draw do
     member do
       get :activate
     end
+    collection do
+      post :create_by_admin
+      get :new_by_admin
+    end
   end
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

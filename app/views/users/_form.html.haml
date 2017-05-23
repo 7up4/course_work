@@ -1,4 +1,8 @@
-= form_for @user do |f|
+- if @current_role_user.try(:is_admin?)
+  - prms = {url: create_by_admin_users_path()}
+- else
+  - prms = {}
+= form_for @user, prms do |f|
   = error_messages_for @user
   .form-actions.bottom20
     = f.submit nil, class: 'btn btn-primary'

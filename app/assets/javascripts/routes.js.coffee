@@ -2,13 +2,14 @@
 # All this logic will automatically be available in application.js.
 # You can use CoffeeScript in this file: http://coffeescript.org/
 set_time_picker= -> $('.timepicker').datetimepicker({locale: 'ru', format: 'HH:mm', defaultDate: ""})
-set_checkbox= -> $('.switch:checkbox').bootstrapSwitch();
+set_checkbox= -> $('.switch:checkbox').bootstrapSwitch()
+delete_nil_from_selector= ->  $(".select_existing_station:visible").children("option[value='']").remove()
 remove_station= ->
   $(".remove_station").click (e) ->
     e.preventDefault()
     my_nested_field = $(this).closest('.nested-fields')
     to_remove = my_nested_field.find('.select_existing_station').val()
-    $('.nested-fields').not(my_nested_field).find(".select_existing_station option[value="+to_remove+"]").remove();
+    $('.nested-fields').not(my_nested_field).find(".select_existing_station option[value="+to_remove+"]").remove()
     my_nested_field.find('.station_destroy').val(1)
     my_nested_field.find('.remove_fields.existing').click()
     $('.nested-fields').not(my_nested_field).find('.hidden_station_id').each (index, elem) ->
@@ -26,10 +27,10 @@ existing_station_ajax= ->
       }
       
 onreload= ->
-  hrs = $('.nested-fields:hidden .hidden_station_id')
+  hrs = $('.nested-fields:hidden').has('.station_destroy[value=1]').find('.hidden_station_id')
+  select_fields = $(".select_existing_station:visible")
   $(hrs).each (k,e) ->
     if $(e).val()
-      select_fields = $(".select_existing_station:visible")
       $(select_fields).children("option[value="+$(e).val()+"]").remove()  
                 
 ready= ->
@@ -39,6 +40,7 @@ ready= ->
     set_checkbox()
     remove_station()
     onreload()
+  delete_nil_from_selector()
   set_time_picker()
   existing_station_ajax()
   set_checkbox()

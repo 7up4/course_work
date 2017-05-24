@@ -16,11 +16,11 @@ RouteStation.delete_all
 Route.delete_all
 Station.delete_all
 TariffZone.delete_all
-5.times{|i| TariffZone.create(name: "Tariff zone №" + (i+1).to_s)}
+5.times{|i| TariffZone.create!(name: "Tariff zone №" + (i+1).to_s)}
 10.times do |i|
-  s = Station.create(
+  Station.create!(
     name: "Station №"+(i+1).to_s,
-    tariff_zone: TariffZone.all[(1..5).to_a.shuffle[0]],
+    tariff_zone: TariffZone.all[(0...5).to_a.shuffle[0]],
     number: i+1
   )
 end

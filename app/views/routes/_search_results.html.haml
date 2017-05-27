@@ -1,58 +1,35 @@
 %h2= t('headers.routes.search_results')
-.row.hidden-sm.hidden-xs
-  %table.table.table-hover
-    %thead
-      %tr
-        %th= Route.human_attribute_name(:start_station_id)
-        %th= Route.human_attribute_name(:end_station_id)
-        %th= Route.human_attribute_name(:days)
-        %th= Route.human_attribute_name(:skipped_stations)
-        %th
-        - if is_powerful?
-          %th
-          %th
-    %tbody
-      - @routes.each do |route|
-        %tr
-          %td= route.start_station.present? ? route.start_station.name : nil
-          %td= route.end_station.present? ? route.end_station.name : nil
-          %td= get_days(route)
-          %td= route.skipped_stations.join(", ")
-          %td
-            = link_to route, class: 'btn btn-warning' do
-              = fa_icon :eye
-              = t('buttons.show')
-          - if is_powerful?
-            %td
-              = link_to edit_route_path(route), class: 'btn btn-info' do
-                = fa_icon :edit
-                = t('buttons.edit')
-            %td
-              = link_to route, :method => :delete, :data => { :confirm => t('buttons.confirm.route') }, class: 'btn btn-danger' do
-                = fa_icon :times
-                = t('buttons.destroy')
-                
-.row.visible-sm.visible-xs
-  %table.table
-    - @routes.each do |route|
-      %tr
-        %th= Route.human_attribute_name(:start_station_id)
-        %td= route.start_station.present? ? route.start_station.name : nil
-      %tr
-        %th= Route.human_attribute_name(:end_station_id)
-        %td= route.end_station.present? ? route.end_station.name : nil
-      %tr
-        %th= Route.human_attribute_name(:days)
-        %td= get_days(route)
-      %tr
-        %th= Route.human_attribute_name(:skipped_stations)
-        %td= route.skipped_stations.join(", ")
-      %tr
-        %td
-          = link_to route, class: 'btn btn-warning' do
-            = fa_icon :eye
-          - if is_powerful?
-            = link_to edit_route_path(route), class: 'btn btn-info' do
-              = fa_icon :edit
-            = link_to route, :method => :delete, :data => { :confirm => t('buttons.confirm.route') }, class: 'btn btn-danger' do
-              = fa_icon :times
+- @routes.each do |route|
+  .list-group
+    .list-group-item
+      .row
+        .col-md-6
+          = Route.human_attribute_name(:start_station_id)
+        .col-md-6
+          = route.start_station.present? ? route.start_station.name : nil
+    .list-group-item
+      .row
+        .col-md-6
+          = Route.human_attribute_name(:end_station_id)
+        .col-md-6
+          = route.end_station.present? ? route.end_station.name : nil
+    .list-group-item
+      .row
+        .col-md-6
+          = Route.human_attribute_name(:days)
+        .col-md-6
+          = get_days(route)
+    .list-group-item
+      .row
+        .col-md-6
+          = Route.human_attribute_name(:skipped_stations)
+        .col-md-6
+          = route.skipped_stations.join(", ")
+    .list-group-item
+      = link_to route, class: 'btn btn-warning' do
+        = fa_icon :eye
+      - if is_powerful?
+        = link_to edit_route_path(route), class: 'btn btn-info' do
+          = fa_icon :edit
+        = link_to route, :method => :delete, :data => { :confirm => t('buttons.confirm.route') }, class: 'btn btn-danger' do
+          = fa_icon :times

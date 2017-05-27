@@ -1,12 +1,12 @@
 =breadcrumb_tag do
-  %li.active
-    = t('app.stations.edit')
   %li
-    = link_to(@station.name, @station)
+    Расписание
   %li
     = link_to 'Станции', stations_path
   %li
-    Расписание
+    = link_to(@station.name, @station)
+  %li.active
+    = t('app.stations.edit')
 
 %h1= t('app.stations.edit')
 

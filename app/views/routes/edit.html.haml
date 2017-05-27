@@ -1,12 +1,12 @@
 =breadcrumb_tag do
-  %li.active
-    = t('app.routes.edit')
   %li
-    = link_to(station_name(@route.start_station) + ' - ' + station_name(@route.end_station), @route)
+    Расписание
   %li
     = link_to 'Маршруты', routes_path
   %li
-    Расписание
+    = link_to(station_name(@route.start_station) + ' - ' + station_name(@route.end_station), @route)
+  %li.active
+    = t('app.routes.edit')
 %h1= t('app.routes.edit')
 
 = render 'form'

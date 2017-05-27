@@ -1,10 +1,10 @@
 =breadcrumb_tag do
-  %li.active
-    = link_to(station_name(@route.start_station) + ' - ' + station_name(@route.end_station), @route)
-  %li
-    = link_to 'Маршруты', routes_path
   %li
     Расписание
+  %li
+    = link_to 'Маршруты', routes_path
+  %li.active
+    = link_to(station_name(@route.start_station) + ' - ' + station_name(@route.end_station), @route)
 .page-header
   %h1= t('activerecord.models.route')
 .row

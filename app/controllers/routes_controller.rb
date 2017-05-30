@@ -105,7 +105,6 @@ class RoutesController < ApplicationController
           route_station: [:arrival_time, :is_missed],
           station: [:name, :number], 
           tariff_zone: [:name]
-        ]
-      )
+        ])
     end
 end

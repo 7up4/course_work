@@ -55,7 +55,7 @@ route_num.times do |i|
   r.stations<<s
   r.route_stations.each do |rs|
     rs.arrival_time = random_hour
-    rs.is_missed = random_bool
+    rs.is_missed = false
   end
   rs = r.route_stations.select{|k| !k.is_missed}.sort_by {|x| x[:arrival_time]}
   r.start_station_id=rs.first.station_id

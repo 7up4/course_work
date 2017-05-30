@@ -37,10 +37,10 @@ class ApplicationController < ActionController::Base
   
   def check_permissions(*roles)
     unless roles.find{|x| @current_role_user.try("is_#{x}?") }
-     redirect_to(ip_path(
-      bad_action_name: action_name,
-      bad_controller_name: controller_name,
-      bad_user_role: @current_role_user.try(:id)))
+      redirect_to(ip_path(
+        bad_action_name: action_name,
+        bad_controller_name: controller_name,
+        bad_user_role: @current_role_user.try(:id)))
     end
   end
 end

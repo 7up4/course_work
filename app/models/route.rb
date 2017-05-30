@@ -65,7 +65,7 @@ class Route < ActiveRecord::Base
     errors.add(:base, :uniq_stations) if stations.length < rs.length
   end
   
-  # В маршруте хотя бы одна станция без пропуска
+  # В маршруте хотя бы один день следования
   def at_least_one_day
     days = [mon, tues, wed, thurs, fri, sat, sun]
     errors.add(:base, :at_least_one_day) if !days.include? true

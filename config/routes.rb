@@ -6,7 +6,6 @@ Rails.application.routes.draw do
       post :search
     end
   end
-  resources :tariff_zones, only: %i(destroy)
   resources :stations
   resources :role_users
   resources :roles

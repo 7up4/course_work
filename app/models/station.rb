@@ -26,6 +26,8 @@ class Station < ActiveRecord::Base
   def avoid_uniqueness_fail
     if remove_tariff_zone.present?
       tz_to_remove = TariffZone.find(remove_tariff_zone)
+      relationship = tz_to_remove.stations.select{|s| s.id!=self.id}
+      return true if !relationship.empty?
       if tz_to_remove.present?
         tz_to_remove.update_attributes(name: random_string)
       end
